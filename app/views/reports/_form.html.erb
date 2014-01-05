@@ -1,0 +1,57 @@
+<%= form_for(@report) do |f| %>
+  <% if @report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+      <% @report.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="field">
+    <%= f.label :dog %><br>
+    <%= f.text_field :dog %>
+  </div>
+  <div class="field">
+    <%= f.label :time %><br>
+    <%= f.text_field :time %>
+  </div>
+  <div class="field">
+    <%= f.label :weather %><br>
+    <%= f.text_field :weather %>
+  </div>
+  <div class="field">
+    <%= f.label :recap %><br>
+    <%= f.text_area :recap %>
+  </div>
+  <div class="field">
+    <%= f.label :pees %><br>
+    <%= f.text_field :pees %>
+  </div>
+  <div class="field">
+    <%= f.label :poops %><br>
+    <%= f.text_field :poops %>
+  </div>
+  <div class="field">
+    <%= f.label :energy %><br>
+    <%= f.text_field :energy %>
+  </div>
+  <div class="field">
+    <%= f.label :vocalization %><br>
+    <%= f.text_field :vocalization %>
+  </div>
+  <div class="field">
+    <%= f.label :overall %><br>
+    <%= f.text_field :overall %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
