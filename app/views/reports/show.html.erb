@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @report.date %>
+</p>
+
+<p>
+  <strong>Dog:</strong>
+  <%= @report.dog %>
+</p>
+
+<p>
+  <strong>Time:</strong>
+  <%= @report.time %>
+</p>
+
+<p>
+  <strong>Weather:</strong>
+  <%= @report.weather %>
+</p>
+
+<p>
+  <strong>Recap:</strong>
+  <%= @report.recap %>
+</p>
+
+<p>
+  <strong>Pees:</strong>
+  <%= @report.pees %>
+</p>
+
+<p>
+  <strong>Poops:</strong>
+  <%= @report.poops %>
+</p>
+
+<p>
+  <strong>Energy:</strong>
+  <%= @report.energy %>
+</p>
+
+<p>
+  <strong>Vocalization:</strong>
+  <%= @report.vocalization %>
+</p>
+
+<p>
+  <strong>Overall:</strong>
+  <%= @report.overall %>
+</p>
+
+<%= link_to 'Edit', edit_report_path(@report) %> |
+<%= link_to 'Back', reports_path %>

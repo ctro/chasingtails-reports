@@ -1,0 +1,45 @@
+<h1>Listing reports</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Dog</th>
+      <th>Time</th>
+      <th>Weather</th>
+      <th>Recap</th>
+      <th>Pees</th>
+      <th>Poops</th>
+      <th>Energy</th>
+      <th>Vocalization</th>
+      <th>Overall</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @reports.each do |report| %>
+      <tr>
+        <td><%= report.date %></td>
+        <td><%= report.dog %></td>
+        <td><%= report.time %></td>
+        <td><%= report.weather %></td>
+        <td><%= report.recap %></td>
+        <td><%= report.pees %></td>
+        <td><%= report.poops %></td>
+        <td><%= report.energy %></td>
+        <td><%= report.vocalization %></td>
+        <td><%= report.overall %></td>
+        <td><%= link_to 'Show', report %></td>
+        <td><%= link_to 'Edit', edit_report_path(report) %></td>
+        <td><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Report', new_report_path %>
