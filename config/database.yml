@@ -5,8 +5,5 @@
 #   gem 'sqlite3'
 development:
   adapter: postgresql
-  encoding: unicode
   database: chasingtails_dev
-  pool: 5
-  username: postgres
-  password: test123
+  host: localhost
