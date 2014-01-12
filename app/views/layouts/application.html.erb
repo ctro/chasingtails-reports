@@ -10,6 +10,11 @@
 </head>
 <body>
 
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+
+<%= link_to "log out", destroy_user_session_path(current_user) if current_user %>
+
 <%= yield %>
 
 </body>

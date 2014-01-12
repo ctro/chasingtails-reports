@@ -1,10 +1,14 @@
 Chasingtails::Application.routes.draw do
 
+  devise_for :users
+  
   resources :reports
   
   resources :clients do
     resources :dogs
   end
+
+  root :to => "reports#index"
 
 
   # The priority is based upon order of creation: first created -> highest priority.

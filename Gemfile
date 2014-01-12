@@ -33,6 +33,10 @@ gem 'simple_form'
 gem 'bourbon'
 gem 'bitters'
 
+gem 'devise'
+
+gem 'thin'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
