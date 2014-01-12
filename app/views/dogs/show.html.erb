@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dog.name %>
+</p>
+
+<%= link_to 'Edit', edit_client_dog_path(@client, @dog) %> |
+<%= link_to 'Back', client_dogs_path(@client) %>

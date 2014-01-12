@@ -1,0 +1,28 @@
+<h1>Listing dogs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dogs.each do |dog| %>
+      <tr>
+        <td><%= dog.name %></td>
+        <td><%= link_to 'Show', client_dog_path(@client, dog) %></td>
+        <td><%= link_to 'Edit', edit_client_dog_path(@client, dog) %></td>
+        <td><%= link_to 'Destroy', client_dog_path(@client, dog), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dog', new_client_dog_path(@client) %>
+<%= link_to 'Back', client_path(@client) %>

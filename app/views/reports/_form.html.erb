@@ -1,4 +1,4 @@
-<%= form_for(@report) do |f| %>
+<%= simple_form_for(@report) do |f| %>
   <% if @report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
@@ -10,6 +10,11 @@
       </ul>
     </div>
   <% end %>
+
+  <!-- This is simple_form -- could  probably dry up lots of these forms -->
+  <%= f.association :client %>
+
+  <%= f.association :dogs, as: :check_boxes, collection: Dog.all %>
 
   <div class="field">
     <%= f.label :walk_date, "date" %><br>

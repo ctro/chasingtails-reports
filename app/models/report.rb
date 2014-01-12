@@ -20,4 +20,11 @@
 #
 
 class Report < ActiveRecord::Base
+	belongs_to :client
+	has_many :report_dogs
+	has_many :dogs, :through => :report_dogs
+
+	def dog_names
+		dogs.map(&:name).join(', ')
+	end
 end

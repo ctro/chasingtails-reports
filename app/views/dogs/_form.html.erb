@@ -1,0 +1,24 @@
+<%= form_for [@client, @dog] do |f| %>
+  <% if @dog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
+
+      <ul>
+      <% @dog.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <input type="hidden" value="<%= @client.id %>" name="dog[client_id]" />
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

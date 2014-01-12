@@ -1,6 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Client:</strong>
+  <%= @report.client.name %>
+</p>
+
+<p>
+  <strong>Dogs:</strong>
+  <%= @report.dog_names %>
+</p>
+
+<p>
   <strong>Date:</strong>
   <%= @report.walk_date %>
 </p>
