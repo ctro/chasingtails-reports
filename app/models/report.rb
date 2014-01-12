@@ -4,7 +4,6 @@
 #
 #  id            :integer          not null, primary key
 #  walk_date     :date
-#  dog           :string(255)
 #  walk_time     :string(255)
 #  weather       :string(255)
 #  recap         :text
@@ -17,14 +16,26 @@
 #  updated_at    :datetime
 #  walk_duration :integer
 #  client_id     :integer
+#  uuid          :string(255)
 #
 
 class Report < ActiveRecord::Base
 	belongs_to :client
-	has_many :report_dogs
+	has_many :report_dogs, :dependent => :destroy
 	has_many :dogs, :through => :report_dogs
+
+	before_create :set_uuid
+
+	def to_param
+		uuid
+	end
 
 	def dog_names
 		dogs.map(&:name).join(', ')
+	end
+
+	private
+	def set_uuid
+		self.uuid = SecureRandom.uuid
 	end
 end

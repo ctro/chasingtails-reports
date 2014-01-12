@@ -64,7 +64,7 @@ class ReportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report
-      @report = Report.find(params[:id])
+      @report = Report.find_by_uuid!(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
