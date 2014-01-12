@@ -5,7 +5,7 @@
 #  id            :integer          not null, primary key
 #  walk_date     :date
 #  dog           :string(255)
-#  time          :string(255)
+#  walk_time     :string(255)
 #  weather       :string(255)
 #  recap         :text
 #  pees          :string(255)
@@ -15,8 +15,8 @@
 #  overall       :string(255)
 #  created_at    :datetime
 #  updated_at    :datetime
-#  walk_time     :time
 #  walk_duration :integer
+#  client_id     :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
