@@ -17,46 +17,46 @@
   <%= f.association :dogs, as: :check_boxes, collection: Dog.all %>
 
   <div class="field">
-    <%= f.label :walk_date, "date" %><br>
+    <%= f.label :walk_date, "Date" %>
     <input type="date", value="<%= @report.walk_date %>" name="report[walk_date]" />
   </div>
 
   <div class="field">
-    <%= f.label :walk_time, "time" %><br>
+    <%= f.label :walk_time, "Time" %>
     <input type="time", value="<%= @report.walk_time %>" name="report[walk_time]" />
   </div>
 
   <div class="field">
-    <%= f.label :walk_duration, "duration" %><br>
+    <%= f.label :walk_duration, "Duration" %>
     <input type="number", value="<%= @report.walk_duration %>" name="report[walk_duration]" />
   </div>
-  
+
   <div class="field">
-    <%= f.label :weather %><br>
+    <%= f.label :weather %>
     <%= f.text_field :weather %>
   </div>
   <div class="field">
-    <%= f.label :recap %><br>
+    <%= f.label :recap %>
     <%= f.text_area :recap %>
   </div>
   <div class="field">
-    <%= f.label :pees %><br>
+    <%= f.label :pees %>
     <%= f.text_field :pees %>
   </div>
   <div class="field">
-    <%= f.label :poops %><br>
+    <%= f.label :poops %>
     <%= f.text_field :poops %>
   </div>
   <div class="field">
-    <%= f.label :energy %><br>
+    <%= f.label :energy %>
     <%= f.text_field :energy %>
   </div>
   <div class="field">
-    <%= f.label :vocalization %><br>
+    <%= f.label :vocalization %>
     <%= f.text_field :vocalization %>
   </div>
   <div class="field">
-    <%= f.label :overall %><br>
+    <%= f.label :overall %>
     <%= f.text_field :overall %>
   </div>
   <div class="actions">
