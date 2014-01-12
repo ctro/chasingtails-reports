@@ -44,7 +44,7 @@ class DogsController < ApplicationController
   def update
     respond_to do |format|
       if @dog.update(dog_params)
-        format.html { redirect_to @dog, notice: 'Dog was successfully updated.' }
+        format.html { redirect_to [@client, @dog], notice: 'Dog was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
