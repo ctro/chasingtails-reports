@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
 
   # POST /reports
   # POST /reports.json
-  def create
+  def create    
     @report = Report.new(report_params)
 
     respond_to do |format|
@@ -69,6 +69,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:date, :dog, :time, :weather, :recap, :pees, :poops, :energy, :vocalization, :overall)
+      params.require(:report).permit(:walk_date, :walk_time, :walk_duration, :dog, :time, :weather, :recap, :pees, :poops, :energy, :vocalization, :overall)
     end
 end

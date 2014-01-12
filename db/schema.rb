@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140105212015) do
+ActiveRecord::Schema.define(version: 20140111235939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "reports", force: true do |t|
-    t.date     "date"
+    t.date     "walk_date"
     t.string   "dog"
-    t.string   "time"
+    t.string   "walk_time"
     t.string   "weather"
     t.text     "recap"
     t.string   "pees"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20140105212015) do
     t.string   "overall"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "walk_duration"
   end
 
 end

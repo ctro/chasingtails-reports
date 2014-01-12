@@ -12,16 +12,23 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
+    <%= f.label :walk_date, "date" %><br>
+    <input type="date", value="<%= @report.walk_date %>" name="report[walk_date]" />
   </div>
+
+  <div class="field">
+    <%= f.label :walk_time, "time" %><br>
+    <input type="time", value="<%= @report.walk_time %>" name="report[walk_time]" />
+  </div>
+
+  <div class="field">
+    <%= f.label :walk_duration, "duration" %><br>
+    <input type="number", value="<%= @report.walk_duration %>" name="report[walk_duration]" />
+  </div>
+  
   <div class="field">
     <%= f.label :dog %><br>
     <%= f.text_field :dog %>
-  </div>
-  <div class="field">
-    <%= f.label :time %><br>
-    <%= f.text_field :time %>
   </div>
   <div class="field">
     <%= f.label :weather %><br>
