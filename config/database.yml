@@ -11,4 +11,3 @@ development:
  production:
   adapter: postgresql
   database: chasingtails_production
-  host: localhost
