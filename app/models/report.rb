@@ -24,6 +24,8 @@ class Report < ActiveRecord::Base
 	has_many :report_dogs, :dependent => :destroy
 	has_many :dogs, :through => :report_dogs
 
+	validates_presence_of :client
+
 	before_create :set_uuid
 
 	def to_param
