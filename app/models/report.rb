@@ -25,7 +25,8 @@ class Report < ActiveRecord::Base
 	has_many :dogs, :through => :report_dogs
 	has_many :assets, :dependent => :destroy
 
-	validates_presence_of :client
+	validates_presence_of :client, :walk_date, :walk_time, :weather, :recap,
+		:pees, :poops, :energy, :vocalization, :overall, :walk_duration
 
 	before_create :set_uuid
 
