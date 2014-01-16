@@ -15,10 +15,12 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
+    3.times { @report.assets.build }
   end
 
   # GET /reports/1/edit
   def edit
+    @report.assets.build
   end
 
   # POST /reports
@@ -69,6 +71,9 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:client_id, {:dog_ids => []}, :walk_date, :walk_time, :walk_duration, :time, :weather, :recap, :pees, :poops, :energy, :vocalization, :overall)
+      params.require(:report).permit(:client_id, {:dog_ids => []}, 
+        :walk_date, :walk_time, :walk_duration, :time, :weather, 
+        :recap, :pees, :poops, :energy, :vocalization, :overall,
+        assets_attributes: [:picture])
     end
 end

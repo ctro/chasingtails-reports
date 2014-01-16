@@ -1,4 +1,4 @@
-<%= simple_form_for(@report) do |f| %>
+<%= simple_form_for(@report, html: {multipart: true}) do |f| %>
   <% if @report.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
@@ -59,6 +59,16 @@
     <%= f.label :overall %>
     <%= f.text_field :overall %>
   </div>
+
+  <div class="field">
+    <%= f.fields_for :assets do |builder| %>
+      <% if builder.object.new_record? %>
+        <%= builder.label :picture, "Image File" %>
+        <%= builder.file_field :picture %>
+      <% end %>
+    <% end %>
+  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

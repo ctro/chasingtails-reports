@@ -23,10 +23,13 @@ class Report < ActiveRecord::Base
 	belongs_to :client
 	has_many :report_dogs, :dependent => :destroy
 	has_many :dogs, :through => :report_dogs
+	has_many :assets, :dependent => :destroy
 
 	validates_presence_of :client
 
 	before_create :set_uuid
+
+	accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a['picture'].nil? }
 
 	def to_param
 		uuid
