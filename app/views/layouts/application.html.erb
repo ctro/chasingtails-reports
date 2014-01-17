@@ -13,10 +13,12 @@
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
-<p>
-Hello <%= current_user.email %>
-<%= link_to "log out", destroy_user_session_path(current_user) if current_user %>
-</p>
+<% if current_user %>
+  <p>
+  Hello <%= current_user.email %>
+  <%= link_to "log out", destroy_user_session_path %>
+  </p>
+<% end %>
 
 <% if current_user && can?(:manage, :clients) %>
 	<ul>
