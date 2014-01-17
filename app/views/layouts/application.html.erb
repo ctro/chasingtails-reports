@@ -15,6 +15,11 @@
 
 <%= link_to "log out", destroy_user_session_path(current_user) if current_user %>
 
+<ul>
+<li><%= link_to "Reports", reports_path %></li>
+<li><%= link_to "Clients", clients_path %></li>
+</ul>
+
 <%= yield %>
 
 </body>

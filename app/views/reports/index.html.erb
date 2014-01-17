@@ -4,17 +4,10 @@
   <thead>
     <tr>
       <th>Client</th>
+      <th>Walker</th>
       <th>Dogs</th>
       <th>Date</th>
       <th>Time</th>
-      <th>Duration</th>
-      <th>Weather</th>
-      <th>Recap</th>
-      <th>Pees</th>
-      <th>Poops</th>
-      <th>Energy</th>
-      <th>Vocalization</th>
-      <th>Overall</th>
       <th></th>
       <th></th>
       <th></th>
@@ -25,17 +18,10 @@
     <% @reports.each do |report| %>
       <tr>
         <td><%= report.client.name %></td>
+        <td><%= report.user.email %></td>
         <td><%= report.dog_names %></td>
-        <td><%= report.walk_date %></td>
-        <td><%= report.walk_time %></td>
-        <td><%= report.walk_duration %></td>
-        <td><%= report.weather %></td>
-        <td><%= report.recap %></td>
-        <td><%= report.pees %></td>
-        <td><%= report.poops %></td>
-        <td><%= report.energy %></td>
-        <td><%= report.vocalization %></td>
-        <td><%= report.overall %></td>
+        <td><%= l report.walk_date %></td>
+        <td><%= l Time.parse(report.walk_time) %></td>
         <td><%= link_to 'Show', report %></td>
         <td><%= link_to 'Edit', edit_report_path(report) %></td>
         <td><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>

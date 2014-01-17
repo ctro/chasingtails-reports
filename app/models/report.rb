@@ -21,6 +21,7 @@
 
 class Report < ActiveRecord::Base
 	belongs_to :client
+	belongs_to :user
 	has_many :report_dogs, :dependent => :destroy
 	has_many :dogs, :through => :report_dogs
 	has_many :assets, :dependent => :destroy
