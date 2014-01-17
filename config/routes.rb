@@ -5,7 +5,11 @@ Chasingtails::Application.routes.draw do
   resources :reports
   
   resources :clients do
-    resources :dogs
+    resources :dogs do
+      collection do
+        get 'checkboxes'
+      end
+    end
   end
 
   root :to => "reports#index"

@@ -5,7 +5,11 @@ class DogsController < ApplicationController
   # GET /dogs
   # GET /dogs.json
   def index
-    @dogs = @client.dogs
+  end
+
+  # renders dog checkboxes for a client.
+  def checkboxes
+    render :partial => "checkboxes"
   end
 
   # GET /dogs/1
@@ -25,7 +29,6 @@ class DogsController < ApplicationController
   # POST /dogs
   # POST /dogs.json
   def create
-
     @dog = Dog.new(dog_params)
 
     respond_to do |format|

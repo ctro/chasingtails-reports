@@ -11,10 +11,13 @@
     </div>
   <% end %>
 
-  <!-- This is simple_form -- could  probably dry up lots of these forms -->
-  <%= f.association :client %>
 
-  <%= f.association :dogs, as: :check_boxes, collection: Dog.all %>
+  
+  <%= f.association :client, :input_html => {:onchange => "load_dogs(this.value)"} %>
+
+  <div id="client_dogs">
+  <!-- via load_dogs is in reports.js.coffee -->
+  </div>
 
   <div class="field">
     <%= f.label :walk_date, "Date" %>

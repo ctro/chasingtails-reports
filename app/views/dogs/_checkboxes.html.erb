@@ -1,0 +1,9 @@
+<div class="input check_boxes optional report_dogs">
+	<label class="check_boxes optional">Dogs</label>
+	<% @client.dogs.each do |dog| %>
+		<span class="checkbox">
+			<input class="check_boxes optional" id="report_dog_ids_<%= dog.id %>" name="report[dog_ids][]" type="checkbox" value="<%= dog.id %>" checked="true" />
+			<label class="check_boxes optional" for="report_dog_ids_<%= dog.id %>"><%= dog.name %></label>
+		</span>
+	<% end %>
+</div>
