@@ -1,6 +1,7 @@
 Chasingtails::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :path_prefix => "auth"
+  resources :users
   
   resources :reports
   
@@ -12,7 +13,7 @@ Chasingtails::Application.routes.draw do
     end
   end
 
-  root :to => "reports#index"
+  root :to => 'passthrough#index'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
