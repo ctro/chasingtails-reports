@@ -32,6 +32,8 @@ class Ability
       can :manage, :all
     else
       can [:create, :show], Report, :user_id => user.id
+      can :show, Client
+      can :checkboxes, Dog
     end
   end
 end
