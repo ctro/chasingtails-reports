@@ -30,6 +30,7 @@ class Report < ActiveRecord::Base
 		:pees, :poops, :energy, :vocalization, :overall, :walk_duration
 
 	before_create :set_uuid
+	after_create :deliver_new_report_email
 
 	accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a['picture'].nil? }
 
@@ -45,4 +46,9 @@ class Report < ActiveRecord::Base
 	def set_uuid
 		self.uuid = SecureRandom.uuid
 	end
+
+	def deliver_new_report_email
+    ReportMailer.new_report_email(self).deliver
+  end
+
 end
