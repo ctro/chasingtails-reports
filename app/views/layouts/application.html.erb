@@ -21,11 +21,10 @@
 <% end %>
 
 <% if current_user && can?(:manage, :clients) %>
-	<ul>
-	<li><%= link_to "Reports", reports_path %></li>
-	<li><%= link_to "Clients", clients_path %></li>
-  <li><%= link_to "Users", users_path %></li>
-	</ul>
+	<%= link_to "Reports", reports_path %> | 
+	<%= link_to "Clients", clients_path %> | 
+  <%= link_to "Users", users_path %>
+  <hr/>
 <% end %>
 
 <%= yield %>

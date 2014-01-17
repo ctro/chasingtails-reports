@@ -26,3 +26,4 @@ en:
   time:
     formats:
       default: "%l:%M %P"
+      datetime: "%l:%M %P %d/%m/%Y"

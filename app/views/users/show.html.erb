@@ -1,7 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-Email: <%= @user.email %>
-Admin: <%= @user.admin? %>
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+<p>
+  <strong>Admin:</strong>
+  <%= @user.admin? %>
+</p>
+<p>
+  <strong>Sign in count:</strong>
+  <%= @user.sign_in_count %>
+</p>
+<p>
+  <strong>Last sign in at:</strong>
+  <%= l @user.last_sign_in_at, :format => :datetime %>
+</p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Edit', edit_user_path(@user) %> | 
+<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
+<br/>
 <%= link_to 'Back', users_path %>

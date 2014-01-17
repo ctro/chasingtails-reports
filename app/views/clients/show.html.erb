@@ -22,6 +22,9 @@
 	<% end %>
 </p>
 
-<%= link_to 'Dogs', client_dogs_path(@client) %> |
-<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Edit', edit_client_path(@client) %> | 
+<%= link_to 'Destroy', @client, method: :delete, data: { confirm: 'Are you sure?' } %>
+<br/>
+<%= link_to 'Dogs', client_dogs_path(@client) %>
+<br/>
 <%= link_to 'Back', clients_path %>
