@@ -1,6 +1,8 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy]
-  authorize_resource
+  authorize_resource except: :show
+
+  skip_before_filter :authenticate_user!, only: :show
 
   # GET /reports
   # GET /reports.json
