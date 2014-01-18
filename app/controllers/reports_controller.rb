@@ -18,7 +18,9 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
+
     3.times { @report.assets.build }
+    @report.walk_date = Date.today
   end
 
   # GET /reports/1/edit
