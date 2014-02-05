@@ -1,0 +1,16 @@
+.grid-sidebar {
+
+  @include screen(tablet-up) {
+//    background:$blue-light;
+    float:left;
+    width:30%;
+  }
+}
+
+.grid-main {
+
+  @include screen(tablet-up) {
+    float:right;
+    width:65%;
+  }
+}

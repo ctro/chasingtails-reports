@@ -1,4 +1,17 @@
+// frameworks
 @import "bourbon";
 @import "bitters/bitters";
 
+// variables and mixins
+@import "variables/colors";
+@import "mixins/media_queries";
+
+// base styles
+@import "base/body";
+
+// layout grids
+@import "layouts/content";
+@import "layouts/main_plus_sidebar";
+
+// modules
 @import "modules/index";

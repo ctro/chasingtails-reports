@@ -1,0 +1,65 @@
+.report-card-photos {
+  text-align:left;
+
+  @include screen(tablet-up) {
+    text-align:center;
+  }
+}
+
+.report-card-photo {
+  display:inline-block;
+  img {
+    width:6em;
+    height:6em;
+  }
+
+  @include screen(tablet-up) {
+    margin:1rem 0;
+
+    img {
+      width:auto;
+      height:auto;
+      box-shadow: 5px 5px 4px 2px rgba(0,0,0,.1);
+      border-radius:5px;
+//      border:5px solid $blue-dark;
+    }
+  }
+}
+
+.report-card-date {
+  color:rgba($pink, .5);
+}
+
+.report-card-header {
+  border-bottom:1px dashed $blue-dark;
+  margin-bottom:1rem;
+}
+
+.report-left {
+
+  @include screen(tablet-up) {
+    width:45%;
+    float:left;
+    margin-right:5%;
+  }
+}
+
+.report-right {
+  @include screen(tablet-up) {
+    width:45%;
+    float:left;
+  }
+}
+
+.admin {
+  background:$blue-dark;
+  color:white;
+
+  a {
+    color:white;
+  }
+
+  padding:1rem;
+
+  margin-bottom:1rem;
+}

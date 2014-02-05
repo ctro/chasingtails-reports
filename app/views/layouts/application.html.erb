@@ -3,14 +3,17 @@
 <head>
   <title>Chasing Tails Client Reports</title>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700' rel='stylesheet' type='text/css'>
   <%= stylesheet_link_tag    "application", media: "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<% if flash[:notice] %>
 <p class="notice"><%= notice %></p>
+<% end %>
 <p class="alert"><%= alert %></p>
 
 <% if current_user %>
@@ -21,13 +24,21 @@
 <% end %>
 
 <% if current_user && can?(:manage, :clients) %>
-	<%= link_to "Reports", reports_path %> | 
-	<%= link_to "Clients", clients_path %> | 
+	<%= link_to "Reports", reports_path %> |
+	<%= link_to "Clients", clients_path %> |
   <%= link_to "Users", users_path %>
   <hr/>
 <% end %>
 
-<%= yield %>
+<div class="site-logo container">
+  <%= link_to image_tag("chasing-tails-logo.png"), "http://chasingtailsjh.com" %>
+</div>
+
+
+
+<div class="content container">
+  <%= yield %>
+</div>
 
 </body>
 </html>

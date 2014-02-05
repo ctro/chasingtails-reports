@@ -1,73 +1,67 @@
-<p id="notice"><%= notice %></p>
+<% if current_user %>
+<div class="admin">
+  <%= link_to 'Edit', edit_report_path(@report) %> |
+  <%= link_to 'Back', reports_path %>
+</div>
+<% end %>
 
-<p>
-  <strong>Client:</strong>
-  <%= @report.client.name %>
-</p>
 
-<p>
-  <strong>Dogs:</strong>
-  <%= @report.dog_names %>
-</p>
+<div class="report-card">
 
-<p>
-  <strong>Date:</strong>
-  <%= @report.walk_date %>
-</p>
+  <div class="grid-sidebar">
 
-<p>
-  <strong>Time:</strong>
-  <%= @report.walk_time %>
-</p>
+  <p>
+    <ul class="report-card-photos">
+    <% @report.assets.each do |asset| %>
+      <li class="report-card-photo"><%= link_to image_tag(asset.picture.url(:square)), asset.picture.url %></li>
+    <% end %>
+    </ul>
+  </p>
 
-<p>
-  <strong>Duration:</strong>
-  <%= @report.walk_duration %>
-</p>
+  </div>
 
-<p>
-  <strong>Weather:</strong>
-  <%= @report.weather %>
-</p>
+  <div class="grid-main">
 
-<p>
-  <strong>Recap:</strong>
-  <%= @report.recap %>
-</p>
+    <h1 class="report-card-header"><%= @report.dog_names %><span class="report-card-date"> / <%= @report.walk_date.strftime("%A, %d %b %Y") %></span></h1>
 
-<p>
-  <strong>Pees:</strong>
-  <%= @report.pees %>
-</p>
+    <div class="report-left">
 
-<p>
-  <strong>Poops:</strong>
-  <%= @report.poops %>
-</p>
+      <h3>Client:</h3>
+      <p><%= @report.client.name %></p>
 
-<p>
-  <strong>Energy:</strong>
-  <%= @report.energy %>
-</p>
+      <h3>Time:</h3>
+      <p><%= @report.walk_time %></p>
 
-<p>
-  <strong>Vocalization:</strong>
-  <%= @report.vocalization %>
-</p>
 
-<p>
-  <strong>Overall:</strong>
-  <%= @report.overall %>
-</p>
+      <h3>Duration:</h3>
+      <p><%= @report.walk_duration %> minutes</p>
 
-<p>
-  <strong>Pictures:</strong>
-  <ul>
-  <% @report.assets.each do |asset| %>
-    <li><%= image_tag asset.picture.url %></li>
-  <% end %>
-  </ul>
-</p>
+      <h3>Weather:</h3>
+      <p><%= @report.weather %></p>
 
-<%= link_to 'Edit', edit_report_path(@report) %> |
-<%= link_to 'Back', reports_path %>
+      <h3>Overall:</h3>
+      <p><%= @report.overall %></p>
+
+    </div>
+
+    <div class="report-right">
+      <h3>Recap:</h3>
+      <p><%= @report.recap %></p>
+
+      <h3>Pees:</h3>
+      <p><%= @report.pees %></p>
+
+      <h3>Poops:</h3>
+      <p><%= @report.poops %></p>
+
+      <h3>Energy:</h3>
+      <p><%= @report.energy %></p>
+
+      <h3>Vocalization:</h3>
+      <p><%= @report.vocalization %></p>
+
+    </div>
+
+  </div>
+
+</div>
