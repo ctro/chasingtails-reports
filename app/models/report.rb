@@ -26,8 +26,28 @@ class Report < ActiveRecord::Base
 	has_many :dogs, :through => :report_dogs
 	has_many :assets, :dependent => :destroy
 
-	validates_presence_of :client, :walk_date, :walk_time, :weather, :recap,
-		:pees, :poops, :energy, :vocalization, :overall, :walk_duration
+	validates_presence_of :walk_date, :walk_time, :walk_duration,
+		:client, :weather, :recap, :pees, :poops, :energy, :vocalization, :overall
+
+	# Validates this format: YYYY-M(M)-D(D)
+	#   a little more lax than HTML5.
+	DATE_REGEX = /\d{4}-\d{1,2}-\d{1,2}/
+
+	# Validates this format: HH:MM
+	#   Military time.  Sorry Android.
+	TIME_REGEX = /\d{2}:\d{2}/
+
+  # Validates an integer
+	DURATION_REGEX = /\d+/
+
+	validates :walk_date, format: { with: DATE_REGEX,
+    message: "Date should look like YYYY-MM-DD" }
+
+  validates :walk_time, format: { with: TIME_REGEX,
+  	message: "Time should look like HH:MM -- yeah, military time." }
+
+  validates :walk_duration, format: { with: DURATION_REGEX,
+  	message: "Duration should be a number like 60 or 90" }
 
 	before_create :set_uuid
 	after_create :deliver_new_report_email
