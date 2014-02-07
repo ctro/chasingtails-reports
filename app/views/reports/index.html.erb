@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Client</th>
-      <th>Walker</th>
+      <th>Pet care provider</th>
       <th>Dogs</th>
       <th>Date</th>
       <th>Time</th>
@@ -18,7 +18,7 @@
     <% @reports.each do |report| %>
       <tr>
         <td><%= report.client.name %></td>
-        <td><%= report.user.email %></td>
+        <td><%= report.user.name %></td>
         <td><%= report.dog_names %></td>
         <td><%= l report.walk_date %></td>
         <td><%= time_str(report.walk_time) %></td>

@@ -24,6 +24,9 @@
 
     <h1 class="report-card-header"><%= @report.dog_names %><span class="report-card-date"> / <%= @report.walk_date.strftime("%A, %d %b %Y") %></span></h1>
 
+    <h2>Pet care provider</h2>
+    <p><%= @report.user.name %></p>
+
     <div class="report-left">
 
       <h3>Client:</h3>
@@ -31,7 +34,6 @@
 
       <h3>Time:</h3>
       <p><%= time_str(@report.walk_time) %></p>
-
 
       <h3>Duration:</h3>
       <p><%= @report.walk_duration %> minutes</p>
@@ -45,13 +47,13 @@
     </div>
 
     <div class="report-right">
-      <h3>Recap:</h3>
+      <h3>Today:</h3>
       <p><%= @report.recap %></p>
 
-      <h3>Pees:</h3>
+      <h3>Pee (# of times):</h3>
       <p><%= @report.pees %></p>
 
-      <h3>Poops:</h3>
+      <h3>Business (# of times, solid/loose/liquid):</h3>
       <p><%= @report.poops %></p>
 
       <h3>Energy:</h3>

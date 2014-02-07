@@ -16,6 +16,11 @@
     <%= f.text_field :email %>
   </div>
 
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
   <% unless @user.new_record? %>
   <p>Fill both of these out to change your password</p>
   <% end %>
