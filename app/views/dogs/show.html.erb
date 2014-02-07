@@ -1,11 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @dog.name %>
-</p>
+<h1><%= @dog.name %></h1>
 
 <%= link_to 'Edit', edit_client_dog_path(@client, @dog) %> | 
 <%= link_to 'Destroy', client_dog_path(@client, @dog), method: :delete, data: { confirm: 'Are you sure?' } %>
 <br/>
-<%= link_to 'Back', client_dogs_path(@client) %>
+<%= link_to 'Back', @client %>

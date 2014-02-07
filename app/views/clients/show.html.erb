@@ -1,9 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @client.name %>
-</p>
+
+<h1><%= @client.name %></h1>
 
 <p>
   <strong>Email:</strong>
@@ -17,14 +15,11 @@
 
 <p>
 	<strong>Dogs:</strong>
-	<% @client.dogs.each do |dog| %>
-		<%= dog.name %><br/>
-	<% end %>
+	<%= dog_links(@client) %>
+  <%= link_to "[+]", new_client_dog_path(@client) %>
 </p>
 
 <%= link_to 'Edit', edit_client_path(@client) %> | 
 <%= link_to 'Destroy', @client, method: :delete, data: { confirm: 'Are you sure?' } %>
-<br/>
-<%= link_to 'Dogs', client_dogs_path(@client) %>
 <br/>
 <%= link_to 'Back', clients_path %>

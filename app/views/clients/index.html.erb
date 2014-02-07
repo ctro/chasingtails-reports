@@ -6,6 +6,7 @@
       <th>Name</th>
       <th>Email</th>
       <th>Address</th>
+      <th>Dogs</th>
     </tr>
   </thead>
 
@@ -13,8 +14,9 @@
     <% @clients.each do |client| %>
       <tr>
         <td><%= link_to client.name, client %></td>
-        <td><%= client.email %></td>
+        <td><%= mail_to client.email %></td>
         <td><%= client.address %></td>
+        <td><%= dog_links(client) %></td>
       </tr>
     <% end %>
   </tbody>

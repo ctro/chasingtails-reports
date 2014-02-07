@@ -37,8 +37,8 @@ class DogsController < ApplicationController
 
     respond_to do |format|
       if @dog.save
-        format.html { redirect_to [@client, @dog], notice: 'Dog was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @dog }
+        format.html { redirect_to @client, notice: 'Dog was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @client }
       else
         format.html { render action: 'new' }
         format.json { render json: @dog.errors, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class DogsController < ApplicationController
   def update
     respond_to do |format|
       if @dog.update(dog_params)
-        format.html { redirect_to [@client, @dog], notice: 'Dog was successfully updated.' }
+        format.html { redirect_to @client, notice: 'Dog was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -65,7 +65,7 @@ class DogsController < ApplicationController
   def destroy
     @dog.destroy
     respond_to do |format|
-      format.html { redirect_to client_dogs_path(@client) }
+      format.html { redirect_to @client }
       format.json { head :no_content }
     end
   end
