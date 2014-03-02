@@ -11,8 +11,8 @@
 #
 
 class Client < ActiveRecord::Base
-	has_many :dogs
-	has_many :reports
+	has_many :dogs, :dependent => :destroy
+	has_many :reports, :dependent => :destroy
 
 	validates_presence_of :name, :email
 end
