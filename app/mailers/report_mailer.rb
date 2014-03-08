@@ -1,10 +1,14 @@
 class ReportMailer < ActionMailer::Base
-	default to: "info@chasingtailsjh.com"
-  default from: "do-not-reply@chasingtailsjh.com"
-
   def new_report_email(report)
     @report = report
     
-    mail(from: @report.user.email, subject: 'New Report Card')
+    opts = {
+    	from: "fredthedog@chasingtailsjh.com",
+    	to: @report.client.email,
+    	cc: ["info@chasingtailsjh.com", @report.user.email],
+    	subject: "Report Card: #{@report.dog_names} #{@report.walk_date.strftime("%m.%d.%y")}"
+    }
+
+    mail(opts)
   end
 end
