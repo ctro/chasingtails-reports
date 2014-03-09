@@ -39,6 +39,7 @@ class ReportsController < ApplicationController
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render action: 'show', status: :created, location: @report }
       else
+        3.times { @report.assets.build }
         format.html { render action: 'new' }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end

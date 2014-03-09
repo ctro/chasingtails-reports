@@ -49,6 +49,8 @@ class Report < ActiveRecord::Base
   validates :walk_duration, format: { with: DURATION_REGEX,
   	message: "Duration should be a number like 60 or 90" }
 
+  validate :presence_of_assets
+
 	before_create :set_uuid
 	after_create :deliver_new_report_email
 
@@ -69,6 +71,11 @@ class Report < ActiveRecord::Base
 
 	def deliver_new_report_email
     ReportMailer.new_report_email(self).deliver
+  end
+
+  def presence_of_assets
+  	# Custom message
+  	self.errors[:base] << "Pictures can't be blank" if assets.blank?
   end
 
 end
