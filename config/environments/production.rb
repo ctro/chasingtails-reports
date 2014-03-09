@@ -1,3 +1,11 @@
+
+Chasingtails::Application.config.middleware.use ExceptionNotification::Rack,
+  :email => {
+    :email_prefix => "[Report Card Error] ",
+    :sender_address => %{"baddog" <baddog@chasingtailsjh.com>},
+    :exception_recipients => %w{hal@chasingtailsjh.com clint@ctro.net}
+}
+
 Chasingtails::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
