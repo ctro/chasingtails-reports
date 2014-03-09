@@ -15,6 +15,13 @@
     collection: Client.all(order: 'name'),
     input_html:  {onchange: "load_dogs(this.value)"} %>
 
+  <!-- if there is an error we need to load the dog boxes -->
+  <% if @report.client_id %>
+  <script type="text/javascript">
+    window.onload=function() { load_dogs(<%= @report.client_id %>)};
+  </script>
+  <% end %>
+
   <div id="client_dogs">
   <!-- via load_dogs is in reports.js.coffee -->
   </div>

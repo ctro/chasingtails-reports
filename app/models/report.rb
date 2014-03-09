@@ -26,7 +26,7 @@ class Report < ActiveRecord::Base
 	has_many :dogs, :through => :report_dogs
 	has_many :assets, :dependent => :destroy
 
-	validates_presence_of :walk_date, :walk_time, :walk_duration,
+	validates_presence_of :dogs, :walk_date, :walk_time, :walk_duration,
 		:client, :weather, :recap, :pees, :poops, :energy, :vocalization, :overall
 
 	# Validates this format: YYYY-M(M)-D(D)
