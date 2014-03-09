@@ -11,9 +11,9 @@
     </div>
   <% end %>
 
-
-  
-  <%= f.association :client, :input_html => {:onchange => "load_dogs(this.value)"} %>
+  <%= f.association :client, 
+    collection: Client.all(order: 'name'),
+    input_html:  {onchange: "load_dogs(this.value)"} %>
 
   <div id="client_dogs">
   <!-- via load_dogs is in reports.js.coffee -->
