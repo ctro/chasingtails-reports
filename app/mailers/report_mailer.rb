@@ -5,7 +5,7 @@ class ReportMailer < ActionMailer::Base
     opts = {
     	from: "fredthedog@chasingtailsjh.com",
     	to: @report.client.email,
-    	cc: ["info@chasingtailsjh.com", @report.user.email],
+    	cc: ["ali@chasingtailsjh.com", "hal@chasingtailsjh.com", @report.user.email],
     	subject: "Report Card: #{@report.dog_names} #{@report.walk_date.strftime("%m.%d.%y")}"
     }
 
