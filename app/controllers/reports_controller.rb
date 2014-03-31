@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
     @report = Report.new
 
     3.times { @report.assets.build }
-    @report.walk_date = Date.today
+    @report.walk_date = Time.zone.now
   end
 
   # GET /reports/1/edit
