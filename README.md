@@ -13,8 +13,9 @@ I just run this on my mac using `homebrew` and these tools:
 
 Something along the lines of:
 
-Install rubies
+Install rubies & other stuff.  Brew shows important instructions after install, so pay attention!
 ```
+brew install postgres
 brew install chruby
 brew install ruby-install
 brew install --HEAD https://raw.github.com/postmodern/gem_home/master/homebrew/gem_home.rb
@@ -29,6 +30,7 @@ cd dev/chasingtails-reports
 gem_home .
 bundle
 bundle exec rails s
+open localhost:3000
 ```
 
 Get a psql prompt
