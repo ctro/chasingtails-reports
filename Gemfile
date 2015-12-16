@@ -36,11 +36,11 @@ gem 'cancan'
 
 gem 'exception_notification'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
+group :production do
+  gem 'puma'
 end
 
+end
 group :development do
 	gem 'annotate', ">=2.6.0"
 	gem 'pry'
