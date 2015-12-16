@@ -9,6 +9,9 @@ development:
   host: localhost
 
 production:
+  host: localhost
   adapter: postgresql
   database: tails_production
-  host: localhost
+  encoding: utf8
+  pool: 5
+  username: postgres
