@@ -40,7 +40,6 @@ group :production do
   gem 'puma'
 end
 
-end
 group :development do
 	gem 'annotate', ">=2.6.0"
 	gem 'pry'
