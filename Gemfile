@@ -31,12 +31,12 @@ gem 'jbuilder', '~> 1.2'
 # Image uploads.
 gem "refile", require: "refile/rails"
 gem "refile-mini_magick"
+gem "refile-s3"
 
 gem 'aws-sdk'
 
 group :production do
   gem 'puma'
-  gem 'exception_notification'
 end
 
 group :development do

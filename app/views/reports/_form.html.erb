@@ -74,7 +74,7 @@
     <%= f.fields_for :assets do |builder| %>
       <% if builder.object.new_record? %>
         <%= builder.label :picture, "Image File" %>
-        <%= builder.attachment_field :picture %>
+        <%= builder.attachment_field :picture, direct: true %>
       <% end %>
     <% end %>
   </div>

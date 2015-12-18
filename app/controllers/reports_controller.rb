@@ -36,8 +36,6 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user = current_user
 
-    binding.pry
-
     respond_to do |format|
       if @report.save
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
