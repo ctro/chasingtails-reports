@@ -13,7 +13,8 @@
   <p>
     <ul class="report-card-photos">
     <% @report.assets.each do |asset| %>
-      <li class="report-card-photo"><%= link_to image_tag(asset.picture.url(:square)), asset.picture.url %></li>
+      <li class="report-card-photo"><%# link_to image_tag(asset.picture.url(:square)), asset.picture.url %></li>
+      <li class="report-card-photo"><%= link_to image_tag(attachment_url(asset, :picture, :fill, 300, 300, format: "jpg")), attachment_url(asset, :picture) %></li>
     <% end %>
     </ul>
   </p>

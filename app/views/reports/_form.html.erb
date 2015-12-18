@@ -11,8 +11,8 @@
     </div>
   <% end %>
 
-  <%= f.association :client, 
-    collection: Client.all(order: 'name'),
+  <%= f.association :client,
+    collection: Client.all.order('name'),
     input_html:  {onchange: "load_dogs(this.value)"} %>
 
   <!-- if there is an error we need to load the dog boxes -->
@@ -74,12 +74,12 @@
     <%= f.fields_for :assets do |builder| %>
       <% if builder.object.new_record? %>
         <%= builder.label :picture, "Image File" %>
-        <%= builder.file_field :picture %>
+        <%= builder.attachment_field :picture %>
       <% end %>
     <% end %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Create Report", :disable_with => "Submitting..." %>
+    <%= f.submit "Save Report", :disable_with => "Submitting..." %>
   </div>
 <% end %>

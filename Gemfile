@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby "2.2.4"
 
 gem 'dotenv-rails'
-gem 'rails', '4.0.2'
+gem 'rails', '4.2.5'
 gem 'pg'
 
 # Clay-land
