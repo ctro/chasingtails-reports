@@ -7,7 +7,9 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.all.order("created_at DESC")
+    # Paginate & eager load
+    @reports = Report.includes(:client, :user, :dogs)
+      .order("created_at DESC").paginate(:page => params[:page])
   end
 
   # GET /reports/1
@@ -30,7 +32,7 @@ class ReportsController < ApplicationController
 
   # POST /reports
   # POST /reports.json
-  def create    
+  def create
     @report = Report.new(report_params)
     @report.user = current_user
 
@@ -73,13 +75,13 @@ class ReportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report
-      @report = Report.find_by_uuid!(params[:id])
+      @report = Report.eager_load(:user, :dogs, :assets).find_by_uuid!(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:client_id, {:dog_ids => []}, 
-        :walk_date, :walk_time, :walk_duration, :time, :weather, 
+      params.require(:report).permit(:client_id, {:dog_ids => []},
+        :walk_date, :walk_time, :walk_duration, :time, :weather,
         :recap, :pees, :poops, :energy, :vocalization, :overall,
         assets_attributes: [:picture])
     end
