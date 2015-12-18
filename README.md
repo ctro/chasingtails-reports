@@ -4,7 +4,7 @@ ChasingTails Reports
 A simple web app for dog walkers using Rails and Postgres.
 
 Development
-===========
+-----------
 
 I just run this on my mac using `homebrew` and these tools:
 - https://github.com/postmodern/chruby
@@ -40,3 +40,8 @@ psql chasingtails_dev
 \d users
 select * from users;
 ```
+
+Env
+---
+
+dotenv:(https://github.com/bkeepers/dotenv).  Production env is not in github.

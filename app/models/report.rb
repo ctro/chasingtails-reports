@@ -17,6 +17,7 @@
 #  walk_duration :integer
 #  client_id     :integer
 #  uuid          :string(255)
+#  user_id       :integer
 #
 
 class Report < ActiveRecord::Base
