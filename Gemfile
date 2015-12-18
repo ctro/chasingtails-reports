@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.0.0"
+ruby "2.2.4"
 
 gem 'dotenv-rails'
 gem 'rails', '4.0.2'
@@ -29,7 +29,9 @@ gem 'cancan'
 gem 'jbuilder', '~> 1.2'
 
 # Image uploads.
-gem 'paperclip'  # -> refile  Signed Uploads, js caching.  Still need jquery?
+gem "refile", require: "refile/rails"
+gem "refile-mini_magick"
+
 gem 'aws-sdk'
 
 group :production do
