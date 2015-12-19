@@ -75,8 +75,9 @@ class Report < ActiveRecord::Base
   end
 
   def presence_of_assets
-  	# Custom message
-  	self.errors[:base] << "Pictures can't be blank" if assets.blank?
+		unless assets.any?{ |a| !a.picture.nil?}
+  		self.errors[:base] << "You have to attach at least one picture."
+		end
   end
 
 end

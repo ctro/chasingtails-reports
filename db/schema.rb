@@ -11,78 +11,74 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151218202252) do
+ActiveRecord::Schema.define(version: 20151219230624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
 
-  create_table "assets", force: true do |t|
+  create_table "assets", force: :cascade do |t|
     t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.string   "picture_id"
+    t.string   "picture_id", limit: 255
   end
 
-  create_table "clients", force: true do |t|
-    t.string   "name"
-    t.string   "email"
+  create_table "clients", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
     t.text     "address"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "dogs", force: true do |t|
-    t.string   "name"
+  create_table "dogs", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "client_id"
   end
 
-  create_table "report_dogs", force: true do |t|
+  create_table "report_dogs", force: :cascade do |t|
     t.integer  "dog_id"
     t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "reports", force: true do |t|
+  create_table "reports", force: :cascade do |t|
     t.date     "walk_date"
-    t.string   "walk_time"
-    t.string   "weather"
+    t.string   "walk_time",     limit: 255
+    t.string   "weather",       limit: 255
     t.text     "recap"
-    t.string   "pees"
-    t.string   "poops"
-    t.string   "energy"
-    t.string   "vocalization"
-    t.string   "overall"
+    t.string   "pees",          limit: 255
+    t.string   "poops",         limit: 255
+    t.string   "energy",        limit: 255
+    t.string   "vocalization",  limit: 255
+    t.string   "overall",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "walk_duration"
     t.integer  "client_id"
-    t.string   "uuid"
+    t.string   "uuid",          limit: 255
     t.integer  "user_id"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",                      default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "admin"
-    t.string   "name"
+    t.string   "name",                   limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
