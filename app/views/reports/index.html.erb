@@ -20,7 +20,7 @@
   <tbody>
     <% @reports.each do |report| %>
       <tr>
-        <td><%= report.client.name %></td>
+        <td><%= link_to report.client.name, report.client %></td>
         <td><%= report.user.name %></td>
         <td><%= report.dog_names %></td>
         <td><%= report.walk_date.to_s(:long) %></td>

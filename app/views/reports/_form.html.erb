@@ -27,6 +27,15 @@
   </div>
 
   <div class="field">
+    <%= f.fields_for :assets do |builder| %>
+      <% if builder.object.new_record? %>
+        <%= builder.label :picture, "Image File" %>
+        <%= builder.attachment_field :picture, direct: true %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= f.label :walk_date, "Date" %>
     <input type="date", value="<%= @report.walk_date %>" name="report[walk_date]" />
   </div>
@@ -68,15 +77,6 @@
   <div class="field">
     <%= f.label :overall %>
     <%= f.text_field :overall %>
-  </div>
-
-  <div class="field">
-    <%= f.fields_for :assets do |builder| %>
-      <% if builder.object.new_record? %>
-        <%= builder.label :picture, "Image File" %>
-        <%= builder.attachment_field :picture, direct: true %>
-      <% end %>
-    <% end %>
   </div>
 
   <div class="actions">
