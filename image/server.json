@@ -23,18 +23,45 @@
         "image/postgres.sh",
         "image/ruby.sh",
         "image/github.sh",
-        "image/puma+nginx.sh"
+        "image/puma+nginx.sh",
+        "image/monitor.sh",
+        "image/papertrail.sh"
       ]
     },
 
     {
       "type": "file",
       "source": "image/static/nginx.config",
-      "destination": "~/nginx.config"
+      "destination": "/home/ubuntu/nginx.config"
     },
     {
       "type": "shell",
-      "inline": ["sudo mv ~/nginx.config /etc/nginx/sites-available/default"]
+      "inline": ["sudo mv /home/ubuntu/nginx.config /etc/nginx/sites-available/default"]
+    },
+
+    {
+      "type": "file",
+      "source": "image/static/tails.cron",
+      "destination": "/home/ubuntu/tails.cron"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "crontab /home/ubuntu/tails.cron",
+        "rm /home/ubuntu/tails.cron"
+      ]
+    },
+
+    {
+      "type": "file",
+      "source": "image/static/log_files.yml",
+      "destination": "/home/ubuntu/log_files.yml"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "sudo mv /home/ubuntu/log_files.yml /etc/log_files.yml"
+      ]
     }
   ]
 

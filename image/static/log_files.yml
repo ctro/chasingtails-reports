@@ -1,0 +1,11 @@
+files:
+  - /home/ubuntu/chasingtails-reports/log/production.log
+  - /home/ubuntu/chasingtails-reports/shared/log/puma.stderr.log
+  - /home/ubuntu/chasingtails-reports/shared/log/puma.stdout.log
+hostname: tails-production
+destination:
+  host: logs3.papertrailapp.com
+  port: 51424
+  protocol: tls
+exclude_patterns:
+  - don't log on me

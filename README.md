@@ -58,6 +58,7 @@ Pretty much everything should be installed and configured.
 
 Boot Production
 ---------------
+After launching the AMI you need to:
 
 *Create the database*
 ```
@@ -77,6 +78,16 @@ cd chasingtails-reports
 sudo gem install bundler
 bundle install
 ```
+
+Don't forget to add your environment via .env
+
+*Set up monitoring*
+
+Metrics are added via an AWS script + cron that reports to CloudWatch.
+https://console.aws.amazon.com/cloudwatch/
+
+Our metric values have prefix "System/Linux".
+Manually add "MemoryUtilization" and "DiskSpaceUtilization" to CloudWatch dashboards and Alarms.
 
 *Start the server*
 ```
