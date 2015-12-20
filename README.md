@@ -6,25 +6,25 @@ A simple web app for dog walkers using Rails and Postgres.
 Development
 -----------
 
-I just run this on my mac using `homebrew` and these tools:
+I run this on a mac using `homebrew` and these tools:
 - https://github.com/postmodern/chruby
 - https://github.com/postmodern/ruby-install
 - https://github.com/postmodern/gem_home
 
-Something along the lines of:
+Here are some loos guidelines:
 
-Install rubies & other stuff.  Brew shows important instructions after install, so pay attention!
+1. Install rubies & other stuff.  Brew shows important instructions after install, so pay attention!
 ```
 brew install postgres
 brew install chruby
 brew install ruby-install
 brew install --HEAD https://raw.github.com/postmodern/gem_home/master/homebrew/gem_home.rb
 gem update --system
-ruby-install ruby:2.0.0
+ruby-install ruby:2.2.4
 gem install bundler
 ```
 
-Boot up the rails app
+2. Boot up the rails app
 ```
 cd dev/chasingtails-reports
 gem_home .
@@ -33,7 +33,7 @@ bundle exec rails s
 open localhost:3000
 ```
 
-Get a psql prompt
+3. Get a psql prompt
 ```
 psql chasingtails_dev
 \dt
@@ -41,7 +41,44 @@ psql chasingtails_dev
 select * from users;
 ```
 
-Env
----
+Environment
+-----------
+See `/.env.example` for specifying ENV variables.
+We use [Dotenv](https://github.com/bkeepers/dotenv) to manage this.
+Real `.env` files are NOT checked in!
 
-dotenv:(https://github.com/bkeepers/dotenv).  Production env is not in github.
+
+Packer
+------
+Build AWS AMI with Packer:
+`source .env && packer build image/server.json`
+
+Now you can launch an EC2 node from the AWS UI
+Pretty much everything should be installed and configured.
+
+Boot Production
+---------------
+
+*Create the database*
+```
+sudo -i -u postgres
+createdb "tails_production"
+
+# You can log into psql like this:
+# sudo -i -u postgres
+# psql
+# \l  \dt \c  \d  \q  <-- some useful commands
+```
+See `db/backups/DUMP.markdown` for DB Export/Import instructions.
+
+*Install deps*
+```
+cd chasingtails-reports
+sudo gem install bundler
+bundle install
+```
+
+*Start the server*
+```
+sudo restart puma-manager
+```

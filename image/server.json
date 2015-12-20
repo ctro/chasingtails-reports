@@ -1,0 +1,41 @@
+{
+  "variables": {
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}"
+  },
+
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "region": "us-west-2",
+    "source_ami": "ami-5189a661",
+    "instance_type": "t2.micro",
+    "ssh_username": "ubuntu",
+    "ami_name": "Tails {{timestamp}}"
+  }],
+
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "image/apt.sh",
+        "image/postgres.sh",
+        "image/ruby.sh",
+        "image/github.sh",
+        "image/puma+nginx.sh"
+      ]
+    },
+
+    {
+      "type": "file",
+      "source": "image/static/nginx.config",
+      "destination": "~/nginx.config"
+    },
+    {
+      "type": "shell",
+      "inline": ["sudo mv ~/nginx.config /etc/nginx/sites-available/default"]
+    }
+  ]
+
+}
