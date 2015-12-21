@@ -20,7 +20,6 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
-
     3.times { @report.assets.build }
     @report.walk_date = Time.zone.now
   end
@@ -41,7 +40,6 @@ class ReportsController < ApplicationController
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render action: 'show', status: :created, location: @report }
       else
-        3.times { @report.assets.build }
         format.html { render action: 'new' }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
@@ -83,6 +81,6 @@ class ReportsController < ApplicationController
       params.require(:report).permit(:client_id, {:dog_ids => []},
         :walk_date, :walk_time, :walk_duration, :time, :weather,
         :recap, :pees, :poops, :energy, :vocalization, :overall,
-        assets_attributes: [:picture])
+        {:assets_pictures => []})
     end
 end

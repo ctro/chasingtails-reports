@@ -1,5 +1,6 @@
-<%= simple_form_for(@report, html: {multipart: true}) do |f| %>
+<%= form_for(@report) do |f| %>
   <% if @report.errors.any? %>
+    <hr/>
     <div id="error_explanation">
       <h2><%= pluralize(@report.errors.count, "error") %> prohibited this report from being saved:</h2>
 
@@ -9,11 +10,11 @@
       <% end %>
       </ul>
     </div>
+    <hr/>
   <% end %>
 
-  <%= f.association :client,
-    collection: Client.all.order('name'),
-    input_html:  {onchange: "load_dogs(this.value)"} %>
+  <label for="report_client_id">Client</label>
+  <%= f.collection_select :client_id, Client.all.order('name'), :id, :name, {prompt: true}, {onchange: "load_dogs(this.value);"} %>
 
   <!-- if there is an error we need to load the dog boxes -->
   <% if @report.client_id %>
@@ -26,14 +27,13 @@
   <!-- via load_dogs is in reports.js.coffee -->
   </div>
 
-  <div class="field">
-    <%= f.fields_for :assets do |builder| %>
-      <% if builder.object.new_record? %>
-        <%= builder.label :picture, "Image File" %>
-        <%= builder.attachment_field :picture, direct: true %>
-      <% end %>
+  <%= f.label :assets_pictures, "Pictures" %>
+  <% if !@report.new_record? %>
+    <% @report.assets.each do |a| %>
+      <%= image_tag(attachment_url(a, :picture, :fill, 100, 100, format: "jpg")) %>
     <% end %>
-  </div>
+  <% end %>
+  <%= f.attachment_field :assets_pictures, multiple: true, direct: true, presigned: true %>
 
   <div class="field">
     <%= f.label :walk_date, "Date" %>

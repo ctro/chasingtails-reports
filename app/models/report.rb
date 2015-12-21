@@ -55,7 +55,8 @@ class Report < ActiveRecord::Base
 	before_create :set_uuid
 	after_create :deliver_new_report_email
 
-	accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a['picture'].nil? }
+	#accepts_nested_attributes_for :assets, :reject_if => lambda { |a| a['picture'].nil? }
+	accepts_attachments_for :assets, attachment: :picture, append: true
 
 	def to_param
 		uuid
