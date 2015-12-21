@@ -79,7 +79,13 @@ sudo gem install bundler
 bundle install
 ```
 
+*Add your env*
 Don't forget to add your environment via .env
+
+*Compile assets, migrate*
+RAILS_ENV=production rake assets:precompile
+RAILS_ENV=production rake db:migrate
+
 
 *Set up monitoring*
 

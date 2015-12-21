@@ -21,7 +21,7 @@ Import in Development
 Log into Production
 -------------------
 ```
-ssh ubuntu@ctro-postgres
+ssh ubuntu@tails-production
 sudo -i -u postgres
 psql tails_production
 ```
@@ -30,8 +30,8 @@ Import into Production
 ----------------------
 ```
 # 1. Capture and Download a backup
-scp latest.dump ubuntu@ctro-postgres:~
-ssh ubuntu@ctro-postgres
+scp latest.dump ubuntu@tails-production:~
+ssh ubuntu@tails-production
 sudo -i -u postgres
 pg_restore --verbose --clean -d tails_production /home/ubuntu/latest.dump
 ```
