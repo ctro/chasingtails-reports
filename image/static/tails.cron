@@ -1,1 +1,1 @@
-*/5 * * * * source ~/chasingtails-reports/.env && ~/aws-scripts-mon/mon-put-instance-data.pl --mem-util --disk-space-util --disk-path=/ --aws-access-key=$AWS_ACCESS_KEY_ID --aws-secret-key=$AWS_SECRET_ACCESS_KEY
+*/5 * * * * . /home/ubuntu/chasingtails-reports/.env; /home/ubnutu/aws-scripts-mon/mon-put-instance-data.pl --from-cron --mem-util --disk-space-util --disk-path=/ --aws-access-key=$AWS_ACCESS_KEY_ID --aws-secret-key=$AWS_SECRET_ACCESS_KEY
