@@ -21,8 +21,10 @@
 #
 
 class Report < ActiveRecord::Base
+	acts_as_paranoid
+
 	belongs_to :client
-	belongs_to :user
+	belongs_to :user, -> { with_deleted }
 	has_many :report_dogs, :dependent => :destroy
 	has_many :dogs, :through => :report_dogs
 	has_many :assets, :dependent => :destroy

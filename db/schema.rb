@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151219230624) do
+ActiveRecord::Schema.define(version: 20151222033928) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,21 +30,30 @@ ActiveRecord::Schema.define(version: 20151219230624) do
     t.text     "address"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
+
+  add_index "clients", ["deleted_at"], name: "index_clients_on_deleted_at", using: :btree
 
   create_table "dogs", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "client_id"
+    t.datetime "deleted_at"
   end
+
+  add_index "dogs", ["deleted_at"], name: "index_dogs_on_deleted_at", using: :btree
 
   create_table "report_dogs", force: :cascade do |t|
     t.integer  "dog_id"
     t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "deleted_at"
   end
+
+  add_index "report_dogs", ["deleted_at"], name: "index_report_dogs_on_deleted_at", using: :btree
 
   create_table "reports", force: :cascade do |t|
     t.date     "walk_date"
@@ -62,7 +71,10 @@ ActiveRecord::Schema.define(version: 20151219230624) do
     t.integer  "client_id"
     t.string   "uuid",          limit: 255
     t.integer  "user_id"
+    t.datetime "deleted_at"
   end
+
+  add_index "reports", ["deleted_at"], name: "index_reports_on_deleted_at", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -79,8 +91,10 @@ ActiveRecord::Schema.define(version: 20151219230624) do
     t.datetime "updated_at"
     t.boolean  "admin"
     t.string   "name",                   limit: 255
+    t.datetime "deleted_at"
   end
 
+  add_index "users", ["deleted_at"], name: "index_users_on_deleted_at", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 

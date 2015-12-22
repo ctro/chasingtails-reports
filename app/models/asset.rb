@@ -18,7 +18,4 @@ class Asset < ActiveRecord::Base
 	belongs_to :report
 	attachment :picture, type: :image
 
-  # validates_presence_of_attachment :picture
-	# validates_attachment_size :picture, :less_than => 5.megabytes
-
 end

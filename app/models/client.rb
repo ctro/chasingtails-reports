@@ -11,6 +11,8 @@
 #
 
 class Client < ActiveRecord::Base
+	acts_as_paranoid
+	
 	has_many :dogs, :dependent => :destroy
 	has_many :reports, :dependent => :destroy
 

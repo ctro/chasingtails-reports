@@ -10,6 +10,8 @@
 #
 
 class Dog < ActiveRecord::Base
+	acts_as_paranoid
+	
 	belongs_to :client
 	has_many :report_dogs, :dependent => :destroy
 	has_many :reports, :through => :report_dogs

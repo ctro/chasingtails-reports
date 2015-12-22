@@ -22,6 +22,7 @@ gem 'coffee-rails', '~> 4.0.0'   # we are using coffee: reports.js.coffee.erb
 # Auth
 gem 'devise'
 gem 'cancan'
+gem "paranoia", "~> 2.0"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # Weird, there are .jbuilder templates.  there is no external api is there?
