@@ -34,6 +34,7 @@ gem "refile-mini_magick"
 gem "refile-s3"
 
 gem 'aws-sdk'
+gem "aws-ses", "~> 0.6.0", :require => 'aws/ses'
 
 group :production do
   gem 'puma'

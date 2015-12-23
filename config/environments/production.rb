@@ -1,6 +1,9 @@
 Chasingtails::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  # AWS-SES for Email in production
+  config.action_mailer.delivery_method = :ses
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
