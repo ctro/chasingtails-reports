@@ -46,6 +46,11 @@ GEM
       jmespath (~> 1.0)
     aws-sdk-resources (2.2.7)
       aws-sdk-core (= 2.2.7)
+    aws-ses (0.6.0)
+      builder
+      mail (> 2.2.5)
+      mime-types
+      xml-simple
     bcrypt (3.1.10)
     bitters (1.0.0)
       bourbon (>= 3.2)
@@ -202,6 +207,7 @@ GEM
     warden (1.2.4)
       rack (>= 1.0)
     will_paginate (3.0.7)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
@@ -209,6 +215,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   aws-sdk
+  aws-ses (~> 0.6.0)
   bitters
   bourbon
   cancan

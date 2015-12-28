@@ -56,6 +56,10 @@ Build AWS AMI with Packer:
 Now you can launch an EC2 node from the AWS UI
 Pretty much everything should be installed and configured.
 
+Production Config
+-----------------
+Emails are delivered via Amazon SES.  SES needs you to verify domain ownership by adding DNS/TXT record.  SES requires manual setp via the SES dashboard.
+
 Boot Production
 ---------------
 After launching the AMI you need to:
@@ -84,6 +88,9 @@ Don't forget to add your environment via .env
 
 *Compile assets, migrate*
 RAILS_ENV=production rake assets:precompile
+
+sudo -i -u postgres
+cd /home/ubuntu/chasingtails-reports
 RAILS_ENV=production rake db:migrate
 
 
