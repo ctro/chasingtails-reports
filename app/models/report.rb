@@ -55,7 +55,7 @@ class Report < ActiveRecord::Base
   validate :presence_of_assets
 
 	before_create :set_uuid
-	after_create :deliver_new_report_email
+	#after_create :deliver_new_report_email
 
 	accepts_attachments_for :assets, attachment: :picture, append: true
 
