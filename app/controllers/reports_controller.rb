@@ -71,8 +71,6 @@ class ReportsController < ApplicationController
     end
   end
 
-  # OK, here I guess :)
-  CachedImage = Struct.new(:filename, :size)
   private
 
     def set_report
@@ -90,15 +88,16 @@ class ReportsController < ApplicationController
 
       @cached_images = cached_image_data.map do |data|
         if data.is_a?(ActionDispatch::Http::UploadedFile)
-          CachedImage.new(data.original_filename, data.size)
+          data.original_filename
         else
-          a = JSON.parse(data)
-          CachedImage.new(a["filename"], a["size"])
+          JSON.parse(data)["filename"]
         end
       end
 
       # If they haven't uploaded 3 images yet, then add some more upload buttons
-      (3 - @cached_images.size).times {@report.images.build}
+      total = @cached_images.size
+      total += @report.images.size if total == 0
+      (3 - total).times {@report.images.build}
     end
 
     def report_params
