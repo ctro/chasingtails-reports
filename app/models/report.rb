@@ -18,6 +18,7 @@
 #  client_id     :integer
 #  uuid          :string(255)
 #  user_id       :integer
+#  deleted_at    :datetime
 #
 
 class Report < ActiveRecord::Base
@@ -27,7 +28,7 @@ class Report < ActiveRecord::Base
 	belongs_to :user, -> { with_deleted }
 	has_many :report_dogs, :dependent => :destroy
 	has_many :dogs, :through => :report_dogs
-	has_many :assets, :dependent => :destroy
+	has_many :images, :dependent => :destroy
 
 	validates_presence_of :dogs, :walk_date, :walk_time, :walk_duration,
 		:client, :weather, :recap, :pees, :poops, :energy, :vocalization, :overall
@@ -52,12 +53,12 @@ class Report < ActiveRecord::Base
   validates :walk_duration, format: { with: DURATION_REGEX,
   	message: "Duration should be a number like 60 or 90" }
 
-  validate :presence_of_assets
+  validate :presence_of_images
 
 	before_create :set_uuid
 	#after_create :deliver_new_report_email
 
-	accepts_attachments_for :assets, attachment: :picture, append: true
+	accepts_nested_attributes_for :images, :reject_if => lambda { |a| a['asset'].blank? }
 
 	def to_param
 		uuid
@@ -76,9 +77,9 @@ class Report < ActiveRecord::Base
     ReportMailer.new_report_email(self).deliver
   end
 
-  def presence_of_assets
-		unless assets.any?{ |a| !a.picture.nil?}
-  		self.errors[:base] << "You have to attach at least one picture."
+  def presence_of_images
+		unless images.any?{ |i| !i.asset.nil?}
+  		self.errors[:base] << "You have to attach at least one image."
 		end
   end
 

@@ -1,18 +1,15 @@
 # == Schema Information
 #
-# Table name: report_dogs
+# Table name: images
 #
 #  id         :integer          not null, primary key
-#  dog_id     :integer
 #  report_id  :integer
 #  created_at :datetime
 #  updated_at :datetime
-#  deleted_at :datetime
+#  asset_id   :string(255)
 #
 
-class ReportDog < ActiveRecord::Base
-	acts_as_paranoid
-	
+class Image < ActiveRecord::Base
 	belongs_to :report
-	belongs_to :dog
+	attachment :asset, type: :image
 end

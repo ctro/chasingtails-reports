@@ -18,6 +18,7 @@
 #  client_id     :integer
 #  uuid          :string(255)
 #  user_id       :integer
+#  deleted_at    :datetime
 #
 
 require 'test_helper'

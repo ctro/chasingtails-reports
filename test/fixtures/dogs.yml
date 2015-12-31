@@ -7,6 +7,7 @@
 #  created_at :datetime
 #  updated_at :datetime
 #  client_id  :integer
+#  deleted_at :datetime
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

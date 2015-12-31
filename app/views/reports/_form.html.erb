@@ -27,13 +27,19 @@
   <!-- via load_dogs is in reports.js.coffee -->
   </div>
 
-  <%= f.label :assets_pictures, "Pictures" %>
-  <% if !@report.new_record? %>
-    <% @report.assets.each do |a| %>
-      <%= image_tag(attachment_url(a, :picture, :fill, 100, 100, format: "jpg")) %>
+  <div class="field">
+    <%= f.label :images_assets, "Pictures" %>
+    <% if !@report.new_record? %>
+      <% @report.images.each do |i| %>
+        <%= image_tag(attachment_url(i, :asset, :fill, 100, 100, format: "jpg")) %>
+      <% end %>
+      <p>(Select new Files if you want to replace these current images).</p>
     <% end %>
-  <% end %>
-  <%= f.attachment_field :assets_pictures, multiple: true, direct: true, presigned: true %>
+
+    <%= f.fields_for :images do |builder| %>
+      <%= builder.attachment_field :asset, direct: true, presigned: true %>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= f.label :walk_date, "Date" %>

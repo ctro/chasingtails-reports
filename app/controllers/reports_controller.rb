@@ -20,13 +20,13 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
-    3.times { @report.assets.build }
+    ensure_3_images
     @report.walk_date = Time.zone.now
   end
 
   # GET /reports/1/edit
   def edit
-    @report.assets.build
+    ensure_3_images
   end
 
   # POST /reports
@@ -71,16 +71,18 @@ class ReportsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_report
-      @report = Report.includes(:user, :dogs, :assets).find_by_uuid!(params[:id])
+      @report = Report.includes(:user, :dogs, :images).find_by_uuid!(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+    def ensure_3_images
+      # don't need to "build" if there is an image present -- it gets its own ChooseFile button automatically.
+      (3 - @report.images.count).times {@report.images.build}
+    end
+
     def report_params
-      params.require(:report).permit(:client_id, {:dog_ids => []},
-        :walk_date, :walk_time, :walk_duration, :time, :weather,
-        :recap, :pees, :poops, :energy, :vocalization, :overall,
-        {:assets_pictures => []})
+      # Quit forking with strong params, users are authenticated!
+      params.require(:report).permit!
     end
 end

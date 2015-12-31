@@ -11,18 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151222033928) do
+ActiveRecord::Schema.define(version: 20151231172157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "pg_stat_statements"
-
-  create_table "assets", force: :cascade do |t|
-    t.integer  "report_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "picture_id", limit: 255
-  end
 
   create_table "clients", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -44,6 +37,13 @@ ActiveRecord::Schema.define(version: 20151222033928) do
   end
 
   add_index "dogs", ["deleted_at"], name: "index_dogs_on_deleted_at", using: :btree
+
+  create_table "images", force: :cascade do |t|
+    t.integer  "report_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "asset_id",   limit: 255
+  end
 
   create_table "report_dogs", force: :cascade do |t|
     t.integer  "dog_id"

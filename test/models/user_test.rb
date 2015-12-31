@@ -17,6 +17,7 @@
 #  updated_at             :datetime
 #  admin                  :boolean
 #  name                   :string(255)
+#  deleted_at             :datetime
 #
 
 require 'test_helper'

@@ -8,6 +8,7 @@
 #  address    :text
 #  created_at :datetime
 #  updated_at :datetime
+#  deleted_at :datetime
 #
 
 class Client < ActiveRecord::Base

@@ -12,8 +12,8 @@
 
   <p>
     <ul class="report-card-photos">
-    <% @report.assets.each do |asset| %>
-      <li class="report-card-photo"><%= link_to image_tag(attachment_url(asset, :picture, :fill, 300, 300, format: "jpg")), attachment_url(asset, :picture) %></li>
+    <% @report.images.each do |image| %>
+      <li><%= link_to(attachment_image_tag(image, :asset, :fill, 300, 300), attachment_url(image, :asset, {:format => "jpg"})) %></li>
     <% end %>
     </ul>
   </p>
