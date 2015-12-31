@@ -40,6 +40,7 @@ class ReportsController < ApplicationController
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render action: 'show', status: :created, location: @report }
       else
+        ensure_3_images
         format.html { render action: 'new' }
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
@@ -70,15 +71,34 @@ class ReportsController < ApplicationController
     end
   end
 
+  # OK, here I guess :)
+  CachedImage = Struct.new(:filename, :size)
   private
 
     def set_report
       @report = Report.includes(:user, :dogs, :images).find_by_uuid!(params[:id])
     end
 
+    # I'm pretty sure this is all necessary because of a combination of
+    #  refile + accepts_nested_attributes_for, and not really using refile's :multiple option.
+    # Multiple option would be great, but it's not supported natively in android browsers...yet.
     def ensure_3_images
-      # don't need to "build" if there is an image present -- it gets its own ChooseFile button automatically.
-      (3 - @report.images.count).times {@report.images.build}
+      # cached images stay in params, but HTML does not allow setting value of file attributes.
+      cached_image_data = params[:report][:images_attributes].values.
+        map{ |i| i["asset"] }.
+        reject{ |a| a.blank? } rescue []
+
+      @cached_images = cached_image_data.map do |data|
+        if data.is_a?(ActionDispatch::Http::UploadedFile)
+          CachedImage.new(data.original_filename, data.size)
+        else
+          a = JSON.parse(data)
+          CachedImage.new(a["filename"], a["size"])
+        end
+      end
+
+      # If they haven't uploaded 3 images yet, then add some more upload buttons
+      (3 - @cached_images.size).times {@report.images.build}
     end
 
     def report_params

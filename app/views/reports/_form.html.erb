@@ -29,6 +29,8 @@
 
   <div class="field">
     <%= f.label :images_assets, "Pictures" %>
+
+    <!-- show already saved images if theey exist -->
     <% if !@report.new_record? %>
       <% @report.images.each do |i| %>
         <%= image_tag(attachment_url(i, :asset, :fill, 100, 100, format: "jpg")) %>
@@ -36,12 +38,20 @@
       <p>(Select new Files if you want to replace these current images).</p>
     <% end %>
 
+    <!-- Show our 3 upload slots, which may have cached values. -->
     <%= f.fields_for :images do |builder| %>
+    <div class="field" style="border:dashed 1px #ddd; background-color:rgb(241,241,222);">
+      <% unless @cached_images.blank? %>
+      This is cached as <b><%= @cached_images.shift.filename %></b>. Choose again to overwrite.
+      <% end %>
+
       <%= builder.attachment_field :asset, direct: true, presigned: true %>
+    </div>
     <% end %>
   </div>
 
   <div class="field">
+    <br/>
     <%= f.label :walk_date, "Date" %>
     <input type="date", value="<%= @report.walk_date %>" name="report[walk_date]" />
   </div>
