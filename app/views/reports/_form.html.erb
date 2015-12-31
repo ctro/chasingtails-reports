@@ -39,7 +39,7 @@
       <% end %>
 
       <% if !@report.new_record? && !@report.images[builder.options[:child_index]].id.nil? %>
-      This is cached as <%= attachment_image_tag(@report.images[builder.options[:child_index]], :asset, :fill, 100, 100, format: "jpg") %>
+      This is saved as <%= attachment_image_tag(@report.images[builder.options[:child_index]], :asset, :fill, 100, 100, format: "jpg") %>
       <br/>Choose again to overwrite.
       <% end %>
 
