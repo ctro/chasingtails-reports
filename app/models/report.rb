@@ -19,6 +19,7 @@
 #  uuid          :string(255)
 #  user_id       :integer
 #  deleted_at    :datetime
+#  no_show       :boolean          default(FALSE)
 #
 
 class Report < ActiveRecord::Base
@@ -30,8 +31,11 @@ class Report < ActiveRecord::Base
 	has_many :dogs, :through => :report_dogs
 	has_many :images, :dependent => :destroy
 
-	validates_presence_of :dogs, :walk_date, :walk_time, :walk_duration,
-		:client, :weather, :recap, :pees, :poops, :energy, :vocalization, :overall
+	# Always
+	validates_presence_of :client, :dogs, :walk_date, :walk_time, :walk_duration
+
+	validates_presence_of :weather, :recap, :pees, :poops, :energy, :vocalization, :overall,
+		:unless => :no_show?
 
 	# Validates this format: YYYY-M(M)-D(D)
 	#   a little more lax than HTML5.
@@ -47,16 +51,17 @@ class Report < ActiveRecord::Base
 	validates :walk_date, format: { with: DATE_REGEX,
     message: "Date should look like YYYY-MM-DD" }
 
+	# Most browsers show a time selector, this message is aimed at older browsers.
   validates :walk_time, format: { with: TIME_REGEX,
   	message: "Time should look like HH:MM -- yeah, military time." }
 
   validates :walk_duration, format: { with: DURATION_REGEX,
   	message: "Duration should be a number like 60 or 90" }
 
-  validate :presence_of_images
+  validate :presence_of_images, :unless => :no_show?
 
 	before_create :set_uuid
-	#after_create :deliver_new_report_email
+	after_create :deliver_new_report_email, :unless => :no_show?
 
 	accepts_nested_attributes_for :images, :reject_if => lambda { |a| a['asset'].blank? }
 
@@ -66,6 +71,10 @@ class Report < ActiveRecord::Base
 
 	def dog_names
 		dogs.map(&:name).join(', ')
+	end
+
+	def formatted_walk_time
+		walk_time.to_time.strftime("%I:%M %P")
 	end
 
 	private

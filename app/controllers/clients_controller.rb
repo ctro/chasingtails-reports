@@ -12,7 +12,6 @@ class ClientsController < ApplicationController
   # GET /clients/1.json
   def show
     @reports = @client.reports.includes(:dogs).
-      where("walk_date >= '#{Date.today.year}-01-01'").
       order("walk_date DESC").
       group_by{ |r| Date::MONTHNAMES[r.walk_date.month] }
 

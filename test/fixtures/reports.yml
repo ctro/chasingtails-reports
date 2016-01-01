@@ -19,6 +19,7 @@
 #  uuid          :string(255)
 #  user_id       :integer
 #  deleted_at    :datetime
+#  no_show       :boolean          default(FALSE)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

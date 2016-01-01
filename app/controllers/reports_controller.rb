@@ -88,13 +88,15 @@ class ReportsController < ApplicationController
 
       @cached_images = cached_image_data.map do |data|
         if data.is_a?(ActionDispatch::Http::UploadedFile)
+          # Sometimes this is a Rails Class
           data.original_filename
         else
+          # Sometimes it's just JSON, from refile I think.
           JSON.parse(data)["filename"]
         end
       end
 
-      # If they haven't uploaded 3 images yet, then add some more upload buttons
+      # If they haven't cached/saved 3 images yet, then add some more upload buttons
       total = @cached_images.size
       total += @report.images.size if total == 0
       (3 - total).times {@report.images.build}

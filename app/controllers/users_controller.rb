@@ -5,12 +5,15 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.all.order(:name)
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @reports = @user.reports.includes(:dogs).
+      order("walk_date DESC").
+      group_by{ |r| r.walk_date.strftime("%Y / %V") }  # <-- group by commercial week (1..53)
   end
 
   # GET /users/new

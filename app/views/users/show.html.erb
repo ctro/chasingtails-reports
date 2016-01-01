@@ -19,7 +19,33 @@
   <%= l @user.last_sign_in_at, :format => :datetime if @user.last_sign_in_at %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> | 
+<h1>Walks</h1>
+<% @reports.each do |week, reports| %>
+<table>
+  <thead><tr><th colspan=5><%= week %></th></tr></thead>
+  <tbody>
+      <tr>
+        <td>Date</td>
+        <td>Time</td>
+        <td>Duration</td>
+        <td>Pets</td>
+        <td>Late Cancellation</td>
+      </tr>
+      <% reports.each do |report| %>
+      <tr>
+        <td><%= link_to report.walk_date, report %></td>
+        <td><%= report.formatted_walk_time %></td>
+        <td><%= report.walk_duration %> min</td>
+        <td><%= report.dog_names %></td>
+        <td><%= "Yes" if report.no_show? %></td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+<% end %>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %>
 <br/>
 <%= link_to 'Back', users_path %>

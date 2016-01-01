@@ -93,6 +93,10 @@
     <%= f.text_field :overall %>
   </div>
 
+  <p style="float:right;">
+    Check this box for a Late Cancellation <%= f.check_box :no_show %>
+  </p>
+
   <div class="actions">
     <%= f.submit "Save Report", :disable_with => "Submitting..." %>
   </div>
