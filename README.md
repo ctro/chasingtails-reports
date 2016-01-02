@@ -57,6 +57,9 @@ You need to create the bucket `tails-backups` and give it a policy restricted to
 }
 ```
 
+You also want to set up a Lifecycle policy on the `tails-backups` bucket in the AWS UI.
+Currently Delete after 11 days.
+
 3. Boot Development
 ```
 cd dev/chasingtails-reports
@@ -110,6 +113,9 @@ $ psql
 \q
 ```
 See `db/backups/DUMP.markdown` for DB Export/Import instructions.
+
+### Set bucket policy for Cache
+The Refile gem uploads direct to s3://tails-production/cache.  Set a lifecycle policy to delete cache entries after some days.
 
 ### Install deps
 ```
