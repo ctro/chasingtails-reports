@@ -1,3 +1,14 @@
+# Always Auto-Orient
+Refile::MiniMagick.prepend Module.new {
+  [:limit, :fit, :fill, :pad].each do |action|
+    define_method(action) do |img, *args|
+      super(img, *args)
+      img.auto_orient
+    end
+  end
+}
+
+# S3 Setup
 require "refile/s3"
 
 aws = {
