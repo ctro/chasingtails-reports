@@ -1,0 +1,2 @@
+# Backup the db every day 7am UTC (midnight mountain time).  Upload to S3 then delete file.
+0 7 * * * pg_dump tails_production > "tails_production.backup.$(date).sql" && source /home/ubuntu/chasingtails-reports/.env && aws s3 cp tails_production.backup* s3://tails-backups && rm tails_production.backup*

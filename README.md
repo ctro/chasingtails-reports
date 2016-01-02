@@ -34,6 +34,29 @@ $ psql chasingtails_dev
 select * from users;
 ```
 
+Postgres backups happen via a build-in cron job.  They upload to S3.
+You need to create the bucket `tails-backups` and give it a policy restricted to the EC2 node's EIP
+```
+{
+	"Version": "2012-10-17",
+	"Id": "S3pgsqlBackup",
+	"Statement": [
+		{
+			"Sid": "IPAllow",
+			"Effect": "Allow",
+			"Principal": "*",
+			"Action": "s3:*",
+			"Resource": "arn:aws:s3:::tails-backups/*",
+			"Condition": {
+				"IpAddress": {
+					"aws:SourceIp": "52.35.135.245/32"
+				}
+			}
+		}
+	]
+}
+```
+
 3. Boot Development
 ```
 cd dev/chasingtails-reports

@@ -54,6 +54,19 @@
 
     {
       "type": "file",
+      "source": "image/static/postgres.cron",
+      "destination": "/home/ubuntu/postgres.cron"
+    },
+    {
+      "type": "shell",
+      "inline": [
+        "crontab -u postgres /home/ubuntu/postgres.cron",
+        "rm /home/ubuntu/postgres.cron"
+      ]
+    },
+
+    {
+      "type": "file",
       "source": "image/static/log_files.yml",
       "destination": "/home/ubuntu/log_files.yml"
     },
