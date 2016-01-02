@@ -11,9 +11,9 @@ I run this on a mac using `homebrew` and these tools:
 - https://github.com/postmodern/ruby-install
 - https://github.com/postmodern/gem_home
 
-Here are some loos guidelines:
+Here are some loose guidelines:
 
-1. Install rubies & other stuff.  Brew shows important instructions after install, so pay attention!
+1. Install rubies & other stuff.  Brew shows important instructions after some installs, so pay attention!
 ```
 brew install postgres
 brew install chruby
@@ -24,7 +24,17 @@ ruby-install ruby:2.2.4
 gem install bundler
 ```
 
-2. Boot up the rails app
+2. Set up Postgres
+```
+$ createdb chasingtails_dev
+$ psql chasingtails_dev
+\l
+\d
+\d users
+select * from users;
+```
+
+3. Boot Development
 ```
 cd dev/chasingtails-reports
 gem_home .
@@ -33,15 +43,8 @@ bundle exec rails s
 open localhost:3000
 ```
 
-3. Get a psql prompt
-```
-psql chasingtails_dev
-\dt
-\d users
-select * from users;
-```
 
-Environment
+ENV
 -----------
 See `/.env.example` for specifying ENV variables.
 We use [Dotenv](https://github.com/bkeepers/dotenv) to manage this.
@@ -55,46 +58,57 @@ Build AWS AMI with Packer:
 
 Now you can launch an EC2 node from the AWS UI
 Pretty much everything should be installed and configured.
+See `image/` for source code.
+
 
 Production Config
 -----------------
-Emails are delivered via Amazon SES.  SES needs you to verify domain ownership by adding DNS/TXT record.  SES requires manual setp via the SES dashboard.
+Emails are delivered via Amazon SES.  SES requires you to verify domain ownership by adding DNS/TXT record.  SES requires manual setup via the SES dashboard.
+
 
 Boot Production
 ---------------
 After launching the AMI you need to:
 
-*Create the database*
+### Create the database
 ```
 sudo -i -u postgres
 createdb "tails_production"
+```
 
-# You can log into psql like this:
-# sudo -i -u postgres
-# psql
-# \l  \dt \c  \d  \q  <-- some useful commands
+You can log into psql and do useful things:
+```
+$ sudo -i -u postgres
+$ psql
+\l  
+\d
+\dt
+\c <db>
+\q
 ```
 See `db/backups/DUMP.markdown` for DB Export/Import instructions.
 
-*Install deps*
+### Install deps
 ```
 cd chasingtails-reports
 sudo gem install bundler
 bundle install
 ```
 
-*Add your env*
-Don't forget to add your environment via .env
+### Add your env
+Don't forget to add your environment via a new `.env` file.
 
-*Compile assets, migrate*
-RAILS_ENV=production rake assets:precompile
+### Compile assets
+`RAILS_ENV=production rake assets:precompile`
 
+### Migrate
+```
 sudo -i -u postgres
 cd /home/ubuntu/chasingtails-reports
 RAILS_ENV=production rake db:migrate
+```
 
-
-*Set up monitoring*
+### Set up monitoring
 
 Metrics are added via an AWS script + cron that reports to CloudWatch.
 https://console.aws.amazon.com/cloudwatch/
@@ -102,7 +116,20 @@ https://console.aws.amazon.com/cloudwatch/
 Our metric values have prefix "System/Linux".
 Manually add "MemoryUtilization" and "DiskSpaceUtilization" to CloudWatch dashboards and Alarms.
 
-*Start the server*
+### (re)Start the server
 ```
+sudo restart puma-manager
+```
+
+### Deploys
+Are manual...
+```
+cd chasingtails-reports
+git pull
+bundle
+sudo -i -u postgres
+cd /home/ubuntu/chasingtails-reports
+bundle exec rake db:migrate
+exit
 sudo restart puma-manager
 ```
