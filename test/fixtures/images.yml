@@ -1,0 +1,14 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id         :integer          not null, primary key
+#  report_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#  asset_id   :string(255)
+#
+
+Stella:
+  report: Stella
+  asset_id: fakefake

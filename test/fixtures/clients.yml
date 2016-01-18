@@ -13,12 +13,18 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  email: MyString
-  address: MyText
+Steph:
+  name: Stephanie & Clay
+  email: steph@email.com
+  address: Rancher and Hansen
 
-two:
-  name: MyString
-  email: MyString
-  address: MyText
+Morris:
+  name: Morris Weintraub
+  email: morris@gmail.com
+  address: Simpson/Hansen Alley
+
+ClientWithID:
+  id: 4200
+  name: Client W. ID
+  email: idclient@gmail.com
+  address: 400N

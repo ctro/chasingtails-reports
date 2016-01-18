@@ -24,26 +24,105 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  date: 2014-01-05
-  dog: MyString
-  time: MyString
-  weather: MyString
-  recap: MyText
-  pees: MyString
-  poops: MyString
-  energy: MyString
-  vocalization: MyString
-  overall: MyString
+Stella:
+  uuid: xoxoxoxoxoxoxoxoxox
+  user: Hal
+  client: Steph
+  dogs: [Stella]
+  walk_date: <%= Date.today %>
+  walk_time: "09:00"
+  walk_duration: 90
+  weather: Light Snow
+  recap: Stella was a really great dog today, full of energy.
+  pees: At least 10
+  poops: 2, 1 solid and 1 liquid
+  energy: Pretty high for Stella!
+  vocalization: Stella was quiet today
+  overall: Super fun walk
 
-two:
-  date: 2014-01-05
-  dog: MyString
-  time: MyString
-  weather: MyString
-  recap: MyText
-  pees: MyString
-  poops: MyString
-  energy: MyString
-  vocalization: MyString
-  overall: MyString
+StellaLanieGrace:
+  uuid: xxx000xxxoooxxx000xxxx
+  user: Hal
+  client: Steph
+  dogs:
+    - Stella
+    - Lanie
+    - Grace
+  walk_date: <%= Date.today %>
+  walk_time: "09:00"
+  walk_duration: 90
+  weather: Heavy Snow!!!
+  recap: 3 Dogs is a lot!
+  pees: Many
+  poops: No poops today.
+  energy: Calm girls today
+  vocalization: quiet.
+  overall: Yay.
+
+ReportWithID:
+  id: 420042
+  uuid: ooooooooooooooooo
+  user: Brad
+  client_id: 4200
+  dogs: [DogWithID, Dog2WithID]
+  walk_date: "2016-01-01"
+  walk_time: "09:00"
+  walk_duration: 90
+  weather: Heavy Snow!!!
+  recap: 3 Dogs is a lot!
+  pees: Many
+  poops: No poops today.
+  energy: Calm dogs today
+  vocalization: quiet.
+  overall: Yay.
+
+Report2WithID:
+  id: 420043
+  uuid: iiiiiiiiiiiiiiii
+  user: Brad
+  client_id: 4200
+  dogs: [DogWithID, Dog2WithID]
+  walk_date: "2016-01-15"
+  walk_time: "12:00"
+  walk_duration: 60
+  weather: Sunny
+  recap: Fun warm walk
+  pees: Many
+  poops: 3
+  energy: Very high
+  vocalization: quiet.
+  overall: Yay.
+
+Report3WithID:
+  id: 420044
+  uuid: iiiiiiiiiiiiiiii
+  user: Brad
+  client_id: 4200
+  dogs: [DogWithID, Dog2WithID]
+  walk_date: "2016-01-15"
+  walk_time: "12:00"
+  walk_duration: 30
+  weather: Sunny
+  recap: Fun warm walk
+  pees: Many
+  poops: 3
+  energy: Very high
+  vocalization: quiet.
+  overall: Yay.
+
+Report4WithID:
+  id: 420045
+  uuid: iiiiiiiiiiiiiiii
+  user: Brad
+  client_id: 4200
+  dogs: [DogWithID, Dog2WithID]
+  walk_date: "2016-01-15"
+  walk_time: "12:00"
+  walk_duration: 15
+  weather: Sunny
+  recap: Fun warm walk
+  pees: Many
+  poops: 3
+  energy: Very high
+  vocalization: quiet.
+  overall: Yay.

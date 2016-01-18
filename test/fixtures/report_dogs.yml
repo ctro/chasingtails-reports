@@ -10,12 +10,12 @@
 #  deleted_at :datetime
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+ReportDogWithID:
+  id: 1
+  dog_id: 12
+  report_id: 420042
 
-one:
-  dog_id: 
-  report_id: 1
-
-two:
-  dog_id: 
-  report_id: 1
+ReportDog2WithID:
+  id: 2
+  dog_id: 13
+  report_id: 420042

@@ -1,7 +1,19 @@
 require 'test_helper'
 
 class ReportMailerTest < ActionMailer::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "new report email" do
+    #skip("wip")
+
+    @report = reports(:ReportWithID)
+    e = ReportMailer.new_report_email(@report)
+    e.deliver_now
+
+    refute ActionMailer::Base.deliveries.empty?
+
+    assert_equal ['fredthedog@chasingtailsjh.com'], e.from
+    assert_equal ['idclient@gmail.com'], e.to
+    assert_match /Report Card/, e.subject
+    assert_match /Howdy/, e.body.to_s
+    #assert_equal read_fixture('invite').join, e.body.to_s
+  end
 end

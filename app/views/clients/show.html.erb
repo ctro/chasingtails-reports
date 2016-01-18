@@ -11,6 +11,7 @@
 <p>
   <strong>Address:</strong>
   <%= @client.address %>
+  <div id="map" style="width: 480px; height: 320px;"></div>
 </p>
 
 <p>
@@ -49,3 +50,14 @@
 <%= link_to 'Destroy', @client, method: :delete, data: { confirm: "Are you sure?\nThis will delete all associated Dogs and Reports." } %>
 <br/>
 <%= link_to 'Back', clients_path %>
+
+<script type="text/javascript">
+function clientMapLoad(address) {
+  initMap();
+  codeAddress("<%= @client.strip_address %>");
+}
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=clientMapLoad">
+</script>

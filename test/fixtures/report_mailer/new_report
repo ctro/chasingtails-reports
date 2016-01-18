@@ -1,6 +1,6 @@
 Howdy,
 
 Here's your Chasing Tails report card:
-<%= report_url(@report) %>
+URL
 
 Thank you for your business!

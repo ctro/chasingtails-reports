@@ -33,4 +33,9 @@ Chasingtails::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  config.active_support.test_order = :random
+
+  #config.routes.default_url_options[:host] = 'testTails'
+  config.action_mailer.default_url_options = { :host => 'testTails' }
 end

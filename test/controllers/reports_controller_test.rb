@@ -1,49 +1,157 @@
 require 'test_helper'
 
 class ReportsControllerTest < ActionController::TestCase
-  setup do
-    @report = reports(:one)
+  include Devise::TestHelpers
+
+  def setup
+    @stella = dogs(:Stella)
+    @lanie = dogs(:Lanie)
+    @grace = dogs(:Grace)
+    @steph = clients(:Steph)
+    @hal = users(:Hal)
+    @report = reports(:StellaLanieGrace)
+    sign_in(@hal)
   end
 
-  test "should get index" do
+  test "admin only access" do
+    sign_out(@hal)
+    sign_in(users(:Brad))
     get :index
-    assert_response :success
-    assert_not_nil assigns(:reports)
+    assert_response 302
   end
 
-  test "should get new" do
+  test "index" do
+    get :index
+    assert_response 200
+
+    assert_match /Previous/, response.body
+    assert_match /Next/, response.body
+
+    assert_match /January 15, 2016/, response.body
+    assert_match /12:00 pm/, response.body
+    assert_match /09:00 am/, response.body
+    assert_match /Stephanie &amp; Clay/, response.body
+    assert_match /Stella/, response.body
+    assert_match /Lanie/, response.body
+    assert_match /Grace/, response.body
+
+    assert_match /reports\/xxx000xxxoooxxx000xxxx/, response.body # uuid links
+  end
+
+  test "show" do
+    get :show, id: @report.uuid
+    assert_response 200
+
+    assert_select 'h1', /Stella, Lanie, Grace/
+    assert_select 'p', /Hal Wheeler/
+    assert_select 'p', /90 minutes/
+    assert_select 'p', /09:00 am/
+  end
+
+  test "show without session" do
+    sign_out(@hal)
+    get :show, id: @report.uuid
+    assert_response 200
+    assert_select 'h1', /Stella, Lanie, Grace/
+  end
+
+  test "new" do
     get :new
-    assert_response :success
+    assert_response 200
+    assert_select 'input', type: 'file'
   end
 
-  test "should create report" do
-    assert_difference('Report.count') do
-      post :create, report: { date: @report.date, dog: @report.dog, energy: @report.energy, overall: @report.overall, pees: @report.pees, poops: @report.poops, recap: @report.recap, time: @report.time, vocalization: @report.vocalization, weather: @report.weather }
+  test "edit" do
+    get :edit, id: @report.uuid
+    assert_response 200
+
+    assert_select 'select#report_client_id', value: @report.client.name
+  end
+
+  test "create" do
+    assert_difference('Report.count', 1) do
+      post :create, report: {
+        user_id: users(:Brad).id, client_id: clients(:Steph).id,
+        dog_ids: [dogs(:Lanie).id, dogs(:Grace).id],
+        walk_date: "2016-01-17", walk_time: "22:00",
+        walk_duration: "30", no_show: true }
     end
 
-    assert_redirected_to report_path(assigns(:report))
+    report = assigns(:report)
+    assert_redirected_to report_path(report)
+    assert report.is_a?(Report)
+    assert report.created_at
+    assert_match /success/, flash[:notice]
   end
 
-  test "should show report" do
-    get :show, id: @report
-    assert_response :success
+  # !!! This test actually uploads a 1x1PNG file to S3/tails-test bucket...
+  test "create with image upload" do
+    assert_difference('Report.count', 1) do
+
+      post :create, report: {
+        user_id: users(:Brad).id, client_id: clients(:Steph).id,
+        dog_ids: [dogs(:Lanie).id, dogs(:Grace).id], walk_date: "2016-01-17",
+        walk_time: "22:00", walk_duration: "30", weather: "ok", recap: "ok",
+        pees: "ok", poops: "ok", energy: "ok", vocalization: "ok", overall: "ok",
+        :images_attributes => [
+          { asset: fixture_file_upload('files/1x1.png','image/png', true) }
+        ]
+      }
+    end
+
+    report = assigns(:report)
+    assert_equal 1, report.images.count
+    assert report.save
+
+    get :edit, id: report.uuid
+    assert_response 200
+
+    # New image show in edit page
+    assert_match /This is saved as/, response.body
+    assert_match /Choose again to overwrite/, response.body
   end
 
-  test "should get edit" do
-    get :edit, id: @report
-    assert_response :success
+  test "image validation" do
+    assert_difference('Report.count', 0) do
+      post :create, report: {
+        user_id: users(:Brad).id, client_id: clients(:Steph).id,
+        dog_ids: [dogs(:Lanie).id, dogs(:Grace).id], walk_date: "2016-01-17",
+        walk_time: "22:00", walk_duration: "30", weather: "ok", recap: "ok",
+        pees: "ok", poops: "ok", energy: "ok", vocalization: "ok", overall: "ok"}
+    end
+
+    report = assigns(:report)
+    assert_equal 1, report.errors.size
+    assert_match /at least one image/, report.errors.first.to_s
   end
 
-  test "should update report" do
-    patch :update, id: @report, report: { date: @report.date, dog: @report.dog, energy: @report.energy, overall: @report.overall, pees: @report.pees, poops: @report.poops, recap: @report.recap, time: @report.time, vocalization: @report.vocalization, weather: @report.weather }
-    assert_redirected_to report_path(assigns(:report))
+  test "failed create" do
+    assert_difference('Report.count', 0) do
+      post :create, report: { user_id: users(:Brad).id, walk_date: "" }
+    end
+
+    assert_match /error/, response.body
+    assert_match /be blank/, response.body
   end
 
-  test "should destroy report" do
+  test "update" do
+    put :update, id: @report.uuid, report: {no_show: true}
+    assert_redirected_to report_url(@report)
+    assert assigns(:report).no_show
+    assert_match /success/, flash[:notice]
+  end
+
+  test "failed update" do
+    put :update, id: @report.uuid, report: {walk_date: ""}
+    assert_match /error/, response.body
+    assert_match /be blank/, response.body
+  end
+
+  test "destroy" do
     assert_difference('Report.count', -1) do
-      delete :destroy, id: @report
+      delete :destroy, :id => @report.uuid
     end
-
     assert_redirected_to reports_path
   end
+
 end

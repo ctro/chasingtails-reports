@@ -13,9 +13,14 @@
 
 class Client < ActiveRecord::Base
 	acts_as_paranoid
-	
+
 	has_many :dogs, :dependent => :destroy
 	has_many :reports, :dependent => :destroy
 
 	validates_presence_of :name, :email
+
+  # Primarily for geo-locating Client.address
+  def strip_address
+    address.gsub("\r","").gsub("\n","")
+  end
 end

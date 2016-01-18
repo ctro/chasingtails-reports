@@ -23,7 +23,24 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+
+  def setup
+    @b = users(:Brad)
+  end
+
+  test "require data" do
+    assert @b.save
+
+    @b.name = ""
+    @b.email = ""
+    @b.password = ""
+    refute @b.validate
+    assert_equal 3, @b.errors.count
+  end
+
+  test "password requirements" do
+    @b.password = "secret"
+    refute @b.validate
+    assert_match /8 characters/, @b.errors.messages.to_s
+  end
 end

@@ -36,6 +36,11 @@ gem "refile-s3"
 gem 'aws-sdk'
 gem "aws-ses", "~> 0.6.0", :require => 'aws/ses'
 
+# Pry, always
+gem 'pry'
+
+gem 'skylight'
+
 group :production do
   gem 'puma'
 end
@@ -43,5 +48,13 @@ end
 group :development do
   gem 'thin'
 	gem 'annotate'
-	gem 'pry'
+  gem 'guard'
+  gem 'guard-minitest'
+  gem 'terminal-notifier-guard'
+end
+
+group :test do
+  gem 'minitest'
+  gem 'minitest-reporters'
+  gem 'simplecov'
 end

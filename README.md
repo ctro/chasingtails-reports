@@ -13,7 +13,7 @@ I run this on a mac using `homebrew` and these tools:
 
 Here are some loose guidelines:
 
-1. Install rubies & other stuff.  Brew shows important instructions after some installs, so pay attention!
+### Install rubies & other stuff.  Brew shows important instructions after some installs, so pay attention!
 ```
 brew install postgres
 brew install chruby
@@ -24,7 +24,7 @@ ruby-install ruby:2.2.4
 gem install bundler
 ```
 
-2. Set up Postgres
+### Set up Postgres
 ```
 $ createdb chasingtails_dev
 $ psql chasingtails_dev
@@ -33,6 +33,77 @@ $ psql chasingtails_dev
 \d users
 select * from users;
 ```
+
+### Boot Development
+```
+cd dev/chasingtails-reports
+gem_home .
+bundle
+bundle exec rails s
+open localhost:3000
+```
+
+### Debugging
+Add `binding.pry` where you want to stop.
+
+Tests
+-----
+Run tests once: `bundle exec rake test`
+
+Continuous tests: `bundle exec guard`
+
+Code Coverage:
+```
+bundle exec rake test:coverage
+open coverage/index.html
+```
+
+There is a test that uploads a 1x1png to S3.  You'll need to set up `tails-test` S3 Bucket same as `tails-dev`
+
+
+ENVironment
+-----------
+See `/.env.example` for specifying ENV variables.
+We use [Dotenv](https://github.com/bkeepers/dotenv) to manage this.
+Real `.env` files are NOT checked in!
+
+
+Packer / AWS AMI
+----------------
+Build AWS AMI with Packer:
+`source .env && packer build image/server.json`
+
+Now you can launch an EC2 node from the AWS UI
+Pretty much everything should be installed and configured.
+See `image/` for source code.
+
+
+Production Emails
+-----------------
+Emails are delivered via Amazon SES.  SES requires you to verify domain ownership by adding DNS/TXT record.  SES requires manual setup via the SES dashboard.
+
+
+Boot Production
+---------------
+After launching the AMI you need to:
+
+### Create the database
+```
+sudo -i -u postgres
+createdb "tails_production"
+```
+
+You can log into psql and do useful things:
+```
+$ sudo -i -u postgres
+$ psql
+\l  
+\d
+\dt
+\c <db>
+\q
+```
+See `db/backups/DUMP.markdown` for DB Export/Import instructions.
 
 Postgres backups happen via a build-in cron job.  They upload to S3.
 You need to create the bucket `tails-backups` and give it a policy restricted to the EC2 node's EIP
@@ -60,59 +131,6 @@ You need to create the bucket `tails-backups` and give it a policy restricted to
 You also want to set up a Lifecycle policy on the `tails-backups` bucket in the AWS UI.
 Currently Delete after 11 days.
 
-3. Boot Development
-```
-cd dev/chasingtails-reports
-gem_home .
-bundle
-bundle exec rails s
-open localhost:3000
-```
-
-
-ENV
------------
-See `/.env.example` for specifying ENV variables.
-We use [Dotenv](https://github.com/bkeepers/dotenv) to manage this.
-Real `.env` files are NOT checked in!
-
-
-Packer
-------
-Build AWS AMI with Packer:
-`source .env && packer build image/server.json`
-
-Now you can launch an EC2 node from the AWS UI
-Pretty much everything should be installed and configured.
-See `image/` for source code.
-
-
-Production Config
------------------
-Emails are delivered via Amazon SES.  SES requires you to verify domain ownership by adding DNS/TXT record.  SES requires manual setup via the SES dashboard.
-
-
-Boot Production
----------------
-After launching the AMI you need to:
-
-### Create the database
-```
-sudo -i -u postgres
-createdb "tails_production"
-```
-
-You can log into psql and do useful things:
-```
-$ sudo -i -u postgres
-$ psql
-\l  
-\d
-\dt
-\c <db>
-\q
-```
-See `db/backups/DUMP.markdown` for DB Export/Import instructions.
 
 ### Set bucket policy for Cache
 The Refile gem uploads direct to s3://tails-production/cache.  Set a lifecycle policy to delete cache entries after some days.
@@ -150,7 +168,8 @@ Manually add "MemoryUtilization" and "DiskSpaceUtilization" to CloudWatch dashbo
 sudo restart puma-manager
 ```
 
-### Deploys
+Deploys
+-------
 Are manual...
 ```
 cd chasingtails-reports
@@ -158,7 +177,31 @@ git pull
 bundle
 sudo -i -u postgres
 cd /home/ubuntu/chasingtails-reports
-bundle exec rake db:migrate
+RAILS_ENV=production bundle exec rake db:migrate
 exit
+RAILS_ENV=production rake assets:precompile
 sudo restart puma-manager
 ```
+
+Releases
+--------
+Update `config/initializers/version.rb`
+```
+git tag v0.0.0
+git push --tags
+```
+Log into github and "Draft a new release"
+
+
+Monitoring
+----------
+App monitoring via Skylight:
+https://www.skylight.io/app/applications/0QxbrpWtqtAy/recent/5m/endpoints
+
+Instance monitoring via CloudWatch:
+https://us-west-2.console.aws.amazon.com/cloudwatch/home?region=us-west-2#dashboards:name=Tails
+
+Logs via Papertrail:
+https://papertrailapp.com/groups/2167163/events
+
+Papertrail also provides alerts on "500" or "Error -(RoutingError)" etc.

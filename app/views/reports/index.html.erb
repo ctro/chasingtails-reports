@@ -24,15 +24,15 @@
         <td><%= report.user.name %></td>
         <td><%= report.dog_names %></td>
         <td><%= report.walk_date.to_s(:long) %></td>
-        <td><%= time_str(report.walk_time) %></td>
-        <td><%= link_to 'Show', report %></td>
-        <td><%= link_to 'Edit', edit_report_path(report) %></td>
-        <td><%= link_to 'Destroy', report, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= report.formatted_walk_time %></td>
+        <td><%= link_to 'Show', report_path(id: report.uuid) %></td>
+        <td><%= link_to 'Edit', edit_report_path(id: report.uuid) %></td>
+        <td><%= link_to 'Destroy', id: report.uuid, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <div class="pagination">
-  <%= will_paginate @posts %>
+  <%= will_paginate @reports %>
 </div>

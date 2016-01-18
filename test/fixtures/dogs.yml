@@ -12,8 +12,25 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+Stella:
+  name: Stella
+  client: Steph
+Lanie:
+  name: Lanie
+  client: Steph
+Grace:
+  name: Grace
+  client: Steph
 
-two:
-  name: MyString
+PJ:
+  name: PussyJamboree
+  client: Morris
+
+DogWithID:
+  id: 12
+  name: IDDOG
+  client_id: 4200
+Dog2WithID:
+  id: 13
+  name: IDDOG2
+  client_id: 4200

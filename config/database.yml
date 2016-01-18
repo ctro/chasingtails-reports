@@ -8,6 +8,11 @@ development:
   database: chasingtails_dev
   host: localhost
 
+test:
+  adapter: postgresql
+  database: chasingtails_test
+  host: localhost
+
 production:
   host: localhost
   adapter: postgresql

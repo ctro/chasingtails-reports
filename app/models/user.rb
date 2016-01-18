@@ -20,6 +20,7 @@
 #  deleted_at             :datetime
 #
 
+# a User is someone who logs in to use the app
 class User < ActiveRecord::Base
   acts_as_paranoid
 
@@ -30,5 +31,5 @@ class User < ActiveRecord::Base
 
   has_many :reports
 
-  validates :name, presence: true
+  validates :name, presence: true  # Devise requires email already
 end

@@ -1,15 +1,21 @@
 ENV["RAILS_ENV"] ||= "test"
+ENV["S3_BUCKET"] = "tails-test"
+
+if ENV['COVERAGE']
+  # Simplecov FIRST
+  require 'simplecov'
+  SimpleCov.start 'rails'
+end
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
+require "minitest/reporters"
+Minitest::Reporters.use!
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
-
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  #
-  # Note: You'll currently still have to declare fixtures explicitly in integration tests
-  # -- they do not yet inherit this setting
   fixtures :all
-
-  # Add more helper methods to be used by all tests here...
 end
+
+WillPaginate.per_page = 5
