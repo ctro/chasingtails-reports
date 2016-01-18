@@ -131,6 +131,16 @@ You need to create the bucket `tails-backups` and give it a policy restricted to
 You also want to set up a Lifecycle policy on the `tails-backups` bucket in the AWS UI.
 Currently Delete after 11 days.
 
+#### Restore a Database backup
+
+1. Log into S3 and download the latest backup
+2. `scp <filename> ubuntu@tails-production:~`
+3. `ssh ubuntu@tails-production`
+4. `chown postgres <filename>`
+5. `sudo -i -u postgres`
+6. `cd /home/ubuntu`
+7. `psql <database_name> < <filename>`
+
 
 ### Set bucket policy for Cache
 The Refile gem uploads direct to s3://tails-production/cache.  Set a lifecycle policy to delete cache entries after some days.
