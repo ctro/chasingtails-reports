@@ -1,2 +1,2 @@
 # Git tags along with this.
-ENV['VERSION']="0.2.0"
+ENV['APP_VERSION']="0.2.1"

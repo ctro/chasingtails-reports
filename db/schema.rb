@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20160101202401) do
     t.integer  "report_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "asset_id",   limit: 255
+    t.string   "asset_id"
   end
 
   create_table "report_dogs", force: :cascade do |t|

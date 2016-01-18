@@ -136,7 +136,7 @@ Currently Delete after 11 days.
 1. Log into S3 and download the latest backup
 2. `scp <filename> ubuntu@tails-production:~`
 3. `ssh ubuntu@tails-production`
-4. `chown postgres <filename>`
+4. `sudo chown postgres <filename>`
 5. `sudo -i -u postgres`
 6. `cd /home/ubuntu`
 7. `psql <database_name> < <filename>`
