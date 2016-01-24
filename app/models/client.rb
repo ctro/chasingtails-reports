@@ -17,7 +17,7 @@ class Client < ActiveRecord::Base
 	has_many :dogs, :dependent => :destroy
 	has_many :reports, :dependent => :destroy
 
-	validates_presence_of :name, :email
+	validates_presence_of :name, :email, :address
 
   # Primarily for geo-locating Client.address
   def strip_address

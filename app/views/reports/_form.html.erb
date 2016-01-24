@@ -97,6 +97,9 @@
     Check this box for a Late Cancellation <%= f.check_box :no_show %>
   </p>
 
+  <%= f.hidden_field :lat %>
+  <%= f.hidden_field :lng %>
+
   <div class="actions">
     <%= f.submit "Save Report", :disable_with => "Submitting..." %>
   </div>

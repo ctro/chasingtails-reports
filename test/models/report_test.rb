@@ -93,7 +93,9 @@ class ReportTest < ActiveSupport::TestCase
 
   test "formatted things" do
     assert_equal @sr.dog_names, "Stella"
-    assert_equal reports(:StellaLanieGrace).dog_names, "Stella, Lanie, Grace"
+    assert_match /Stella/, reports(:StellaLanieGrace).dog_names
+    assert_match /Lanie/, reports(:StellaLanieGrace).dog_names
+    assert_match /Grace/, reports(:StellaLanieGrace).dog_names
 
     assert_equal "09:00 am", reports(:Stella).formatted_walk_time
   end

@@ -19,6 +19,7 @@
 var geocoder;
 var map;
 
+// Callback from async script
 function initMap() {
  var latlng = new google.maps.LatLng(0,0);
  var mapOptions = {
@@ -28,6 +29,29 @@ function initMap() {
  map = new google.maps.Map(document.getElementById("map"), mapOptions);
 }
 
+// Geocode : New reports
+function setLatLong() {
+
+  // HTML5 geolocation : Report form
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = { lat: position.coords.latitude, lng: position.coords.longitude };
+      $('#report_lat').val(pos.lat);
+      $('#report_lng').val(pos.lng);
+    });
+  }
+}
+
+// Show Lat/Lng from walk
+function setLatLong(lat, lng) {
+  pos = { lat: lat, lng: lng }
+  var infoWindow = new google.maps.InfoWindow({map: map});
+  infoWindow.setPosition(pos);
+  infoWindow.setContent('Reported here');
+  map.setCenter(pos);
+}
+
+// Reverse Geocode : Client addresses
 function codeAddress(address) {
  geocoder = new google.maps.Geocoder();
  geocoder.geocode( { 'address': address}, function(results, status) {

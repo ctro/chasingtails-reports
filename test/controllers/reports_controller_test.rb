@@ -42,7 +42,7 @@ class ReportsControllerTest < ActionController::TestCase
     get :show, id: @report.uuid
     assert_response 200
 
-    assert_select 'h1', /Stella, Lanie, Grace/
+    assert_select 'h1', /#{@report.dog_names}*/
     assert_select 'p', /Hal Wheeler/
     assert_select 'p', /90 minutes/
     assert_select 'p', /09:00 am/

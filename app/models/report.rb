@@ -83,7 +83,7 @@ class Report < ActiveRecord::Base
 	end
 
 	def deliver_new_report_email
-    ReportMailer.new_report_email(self).deliver
+    ReportMailer.new_report_email(self).deliver_now
   end
 
   def presence_of_images

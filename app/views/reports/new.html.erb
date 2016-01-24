@@ -2,4 +2,15 @@
 
 <%= render 'form' %>
 
+<div id="map" style="width: 480px; height: 320px;"></div>
+<script type="text/javascript">
+function reportMapLoad(address) {
+  setLatLong();
+}
+</script>
+
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=reportMapLoad">
+</script>
+
 <%= link_to 'Back', reports_path %>

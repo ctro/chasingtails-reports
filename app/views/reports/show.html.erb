@@ -63,3 +63,20 @@
   </div>
 
 </div>
+
+<% if current_user && current_user.admin? %>
+<div>
+  <div id="map" style="width: 480px; height: 320px;"></div>
+
+  <script type="text/javascript">
+  function reportMapLoad() {
+    initMap();
+    setLatLong(<%= @report.lat %>, <%= @report.lng %>);
+  }
+  </script>
+
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=reportMapLoad">
+  </script>
+</div>
+<% end %>

@@ -1,6 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-
 <h1><%= @client.name %></h1>
 
 <p>
@@ -52,7 +51,7 @@
 <%= link_to 'Back', clients_path %>
 
 <script type="text/javascript">
-function clientMapLoad(address) {
+function clientMapLoad() {
   initMap();
   codeAddress("<%= @client.strip_address %>");
 }
