@@ -30,8 +30,7 @@ function initMap() {
 }
 
 // Geocode : New reports
-function setLatLong() {
-
+function setHiddenLatLng() {
   // HTML5 geolocation : Report form
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -43,7 +42,7 @@ function setLatLong() {
 }
 
 // Show Lat/Lng from walk
-function setLatLong(lat, lng) {
+function setLatLng(lat, lng) {
   pos = { lat: lat, lng: lng }
   var infoWindow = new google.maps.InfoWindow({map: map});
   infoWindow.setPosition(pos);
