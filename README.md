@@ -215,3 +215,14 @@ Logs via Papertrail:
 https://papertrailapp.com/groups/2167163/events
 
 Papertrail also provides alerts on "500" or "Error -(RoutingError)" etc.
+
+
+Bugs
+----
+Cloudwatch and SES stopped working b/c system clock was too far off.
+```
+timedatectl  # to check date/time
+sudo ntpdate-debian  # to re-set time
+```
+For now just keep the 'debian' version of ntpdate in cron so it keeps running.
+`0 0 * * * sudo ntpdate-debian` 
