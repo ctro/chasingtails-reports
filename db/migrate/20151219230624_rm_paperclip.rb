@@ -1,9 +1,10 @@
 class RmPaperclip < ActiveRecord::Migration
   def change
-    remove_column :assets, :picture_file_name
-    remove_column :assets, :picture_content_type
-    remove_column :assets, :picture_file_size
-    remove_column :assets, :picture_updated_at
+    # We never enabled paperclip, so no worries.
+    # remove_column :assets, :picture_file_name
+    # remove_column :assets, :picture_content_type
+    # remove_column :assets, :picture_file_size
+    # remove_column :assets, :picture_updated_at
   end
 end
 #  created_at           :datetime

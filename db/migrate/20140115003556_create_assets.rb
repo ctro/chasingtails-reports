@@ -5,7 +5,8 @@ class CreateAssets < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_attachment :assets, :picture
+    # Don't currently use paperclip, so don't worry.
+    #add_attachment :assets, :picture
   end
 
   def self.down
