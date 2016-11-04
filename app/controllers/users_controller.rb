@@ -76,6 +76,18 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /users/trash
+  def trash
+    @users = User.only_deleted
+  end
+
+  # GET /user/1/put_back
+  def put_back
+    User.restore(params[:id], recursive: true)
+    flash[:notice] = "Successfully put back"
+    redirect_to users_url
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params

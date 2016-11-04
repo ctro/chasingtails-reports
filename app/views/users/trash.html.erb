@@ -1,9 +1,4 @@
-<h1>Listing users</h1>
-
-<%= link_to 'New User', new_user_path %>
-&nbsp;|&nbsp;
-<%= link_to 'Deleted Users', trash_users_path %>
-<br/>
+<h1>Deleted users</h1>
 
 <table>
   <thead>
@@ -18,8 +13,10 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name, user %></td>
+        <td><%= user.name %></td>
         <td><%= mail_to user.email %></td>
+        <td><%= link_to "Put Back", put_back_user_path(user),
+                  data: { confirm: "Are you sure?" } %></td>
       </tr>
     <% end %>
   </tbody>

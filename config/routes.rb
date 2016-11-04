@@ -1,7 +1,10 @@
 Chasingtails::Application.routes.draw do
 
   devise_for :users, :path_prefix => "auth"
-  resources :users
+  resources :users do
+    collection { get 'trash' }
+    member { get 'put_back' }
+  end
 
   resources :reports
 
