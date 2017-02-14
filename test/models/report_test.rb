@@ -28,9 +28,14 @@ class ReportTest < ActiveSupport::TestCase
 
   def setup
     @sr = reports(:Stella)
+
+    # Fixture relationships should make this unnecessary but :shrug:
+    @sr.dogs = [dogs(:Stella)]
   end
 
   test "unconditional required data" do
+
+    x=10
     assert @sr.save
 
     @sr.client = nil
@@ -93,6 +98,10 @@ class ReportTest < ActiveSupport::TestCase
 
   test "formatted things" do
     assert_equal @sr.dog_names, "Stella"
+
+    @slgr = reports(:StellaLanieGrace)
+    # Fixture relationships seem broken :shrug:
+    @slgr.dogs = [dogs(:Stella), dogs(:Lanie), dogs(:Grace)]
     assert_match /Stella/, reports(:StellaLanieGrace).dog_names
     assert_match /Lanie/, reports(:StellaLanieGrace).dog_names
     assert_match /Grace/, reports(:StellaLanieGrace).dog_names

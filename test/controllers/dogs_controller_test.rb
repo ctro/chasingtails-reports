@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DogsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @stella = dogs(:Stella)

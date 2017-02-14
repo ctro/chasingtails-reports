@@ -28,7 +28,7 @@ Stella:
   uuid: xoxoxoxoxoxoxoxoxox
   user: Hal
   client: Steph
-  dogs: [Stella]
+  dogs: StellaDog 
   walk_date: <%= Date.today %>
   walk_time: "09:00"
   walk_duration: 90

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ReportsControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   def setup
     @stella = dogs(:Stella)
@@ -9,7 +9,10 @@ class ReportsControllerTest < ActionController::TestCase
     @grace = dogs(:Grace)
     @steph = clients(:Steph)
     @hal = users(:Hal)
+
     @report = reports(:StellaLanieGrace)
+    # Fixture relationships are broken. :shrug:
+    @report.dogs = [dogs(:Stella), dogs(:Lanie), dogs(:Grace)]
     sign_in(@hal)
   end
 

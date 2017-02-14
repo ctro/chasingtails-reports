@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PassthroughControllerTest < ActionController::TestCase
-  include Devise::TestHelpers
+  include Devise::Test::ControllerHelpers
 
   # Passthrough Controller happens after login.
   #  normal users go to new reports#new
