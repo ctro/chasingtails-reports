@@ -61,7 +61,7 @@ class Report < ActiveRecord::Base
   validate :presence_of_images, :unless => :no_show?
 
 	before_create :set_uuid
-	after_create :deliver_new_report_email, :unless => :no_show?
+	after_create :deliver_new_report_email
 
 	accepts_nested_attributes_for :images, :reject_if => lambda { |a| a['asset'].blank? }
 

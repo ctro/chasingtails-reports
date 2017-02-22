@@ -16,4 +16,10 @@ class ReportMailerTest < ActionMailer::TestCase
     assert_match /Howdy/, e.body.to_s
     #assert_equal read_fixture('invite').join, e.body.to_s
   end
+
+  test "report email happens even with no-show" do
+    assert ActionMailer::Base.deliveries.empty?
+    r = Report.create(no_show: true, user: users(:Hal), client: clients(:Steph), dogs: [dogs(:PJ)], walk_date: Date.today, walk_time: "13:00", walk_duration: "90")
+    refute ActionMailer::Base.deliveries.empty?
+  end
 end
