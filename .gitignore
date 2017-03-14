@@ -19,3 +19,4 @@ pickle-email-*.html
 .DS_Store
 .gem
 *.env
+*.kate-swp
