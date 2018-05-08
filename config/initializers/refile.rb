@@ -16,7 +16,7 @@ aws = {
   secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
   region: "us-west-2",
   bucket: ENV['S3_BUCKET'],
-  max_size: 5.megabytes
+  max_size: 12.megabytes # This is max size for all attachments on one form. I think.  This seems huge but it works.
 }
 Refile.cache = Refile::S3.new(prefix: "cache", **aws)
 Refile.store = Refile::S3.new(prefix: "store", **aws)
