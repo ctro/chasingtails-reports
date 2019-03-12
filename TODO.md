@@ -1,3 +1,5 @@
 # TODO
 
-- [ ] Pin Users when they fill out form
+- [ ] Brakeman warnings
+- [ ] Ruby / Rails update
+- [ ] Actions CI for Brakeman, Tests
