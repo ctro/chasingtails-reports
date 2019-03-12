@@ -159,6 +159,10 @@ https://console.aws.amazon.com/cloudwatch/
 Our metric values have prefix "System/Linux".
 Manually add "MemoryUtilization" and "DiskSpaceUtilization" to CloudWatch dashboards and Alarms.
 
+#### SSH into server
+
+`ssh -i .ssh\CTRO-AWS.pem ubuntu@52.35.135.245`
+
 #### (re)Start the server
 ```
 sudo restart puma-manager
