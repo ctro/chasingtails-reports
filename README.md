@@ -18,9 +18,10 @@ xgd-open http://localhost:3000
 ```
 
 #### Tests
-Run tests once: `docker-compose run web rake test`
-Or continuously: `docker-compose run web guard`
-With coverage: `docker-compose run web rake test:coverage` (open `coverage/index.html`)
+
+- Run tests once: `docker-compose run web rake test`
+- Or continuously: `docker-compose run web guard`
+- With coverage: `docker-compose run web rake test:coverage` (open `coverage/index.html`)
 
 There is a test that uploads a 1x1png to S3.  You'll need to set up `tails-test` S3 Bucket same as `tails-dev`
 
@@ -145,6 +146,10 @@ bundle install
 
 #### Add your env
 Don't forget to add your environment via a new `.env` file.
+
+Use an IAM user for the AWS credentialis. The user needs these permissions:
+
+- `AmazonS3FullAccess`
 
 #### Compile assets
 `RAILS_ENV=production rake assets:precompile`

@@ -1,13 +1,14 @@
 source 'https://rubygems.org'
 
-ruby "2.2.6"
+# Match to prod server
+ruby "2.3.8"
 
 gem 'dotenv-rails'
-gem 'rails', '4.2.5'
+gem 'rails'#, '~> 4.2'
 gem 'pg'
 
 # Clay-land
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails'#, '~> 4.0'
 gem 'bourbon'
 gem 'bitters'
 
@@ -16,17 +17,17 @@ gem 'will_paginate'
 
 # JS
 gem 'jquery-rails'
-gem 'uglifier', '>= 1.3.0'  # compress js
-gem 'coffee-rails', '~> 4.0.0'   # we are using coffee: reports.js.coffee.erb
+gem 'uglifier'#, '>= 1.3.0'  # compress js
+gem 'coffee-rails'#, '~> 4.0.0'   # we are using coffee: reports.js.coffee.erb
 
 # Auth
 gem 'devise'
 gem 'cancan'
-gem "paranoia", "~> 2.0"
+gem "paranoia"#, "~> 2.0"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # Weird, there are .jbuilder templates.  there is no external api is there?
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder'#, '~> 1.2'
 
 # Image uploads.
 gem "refile", require: "refile/rails"
@@ -34,7 +35,7 @@ gem "refile-mini_magick"
 gem "refile-s3"
 
 gem 'aws-sdk'
-gem "aws-ses", "~> 0.6.0", :require => 'aws/ses'
+gem "aws-ses", :require => 'aws/ses' #"~> 0.6.0", 
 
 # Pry, always
 gem 'pry'
