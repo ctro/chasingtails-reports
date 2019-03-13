@@ -53,6 +53,11 @@ See `/.env.example` for specifying ENV variables.
 We use [Dotenv](https://github.com/bkeepers/dotenv) to manage this.
 Real `.env` files are NOT checked in!
 
+Use an IAM user with limited ability for AWS credentials. User needs: 
+
+- `AmazonS3FullAccess` for S3 uploads
+- `CloudWatchFullAccess` for CloudWatch logging
+- `AmazonSESFullAccess` to send emails
 
 ### Packer / AWS AMI
 
