@@ -39,14 +39,14 @@ class Report < ActiveRecord::Base
 
 	# Validates this format: YYYY-M(M)-D(D)
 	#   a little more lax than HTML5.
-	DATE_REGEX = /\d{4}-\d{1,2}-\d{1,2}/
+	DATE_REGEX = /\A\d{4}-\d{1,2}-\d{1,2}\z/
 
 	# Validates this format: HH:MM
 	#   Military time.  Sorry Android.
-	TIME_REGEX = /\d{2}:\d{2}/
+	TIME_REGEX = /\A\d{2}:\d{2}\z/
 
-  # Validates an integer
-	DURATION_REGEX = /\d+/
+  # Validates an integer, kind of unnecessary because can't even set a string.
+	DURATION_REGEX = /\A\d+\z/
 
 	validates :walk_date, format: { with: DATE_REGEX,
     message: "Date should look like YYYY-MM-DD" }

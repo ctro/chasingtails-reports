@@ -88,14 +88,13 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal @sr.images, [images(:Stella)]
   end
 
-  test "format validations" do
-    @sr.walk_date = "whee"
-    @sr.walk_time = "bee"
-    refute @sr.validate
-
-    # @sr.walk_duration cannot be set to a string
+  # A similar test for walk_duration doesn't work b/c it's an integer
+  # A similar test for walk_date doesn't work b/c it's a date 
+  test "time format validations" do
+    @sr.walk_time = "$04:20!"
+    assert_equal false, @sr.validate
   end
-
+  
   test "formatted things" do
     assert_equal @sr.dog_names, "Stella"
 
