@@ -1,12 +1,12 @@
 # Always Auto-Orient
-Refile::MiniMagick.prepend Module.new {
+Refile::MiniMagick.prepend(Module.new do
   %i[limit fit fill pad].each do |action|
     define_method(action) do |img, *args|
       super(img, *args)
       img.auto_orient
     end
   end
-}
+end)
 
 # S3 Setup
 require 'refile/s3'

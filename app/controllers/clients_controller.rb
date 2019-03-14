@@ -1,3 +1,4 @@
+# Clients Controller
 class ClientsController < ApplicationController
   load_resource only: %i[show edit update destroy]
   authorize_resource
@@ -31,11 +32,20 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to @client, notice: 'Client was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @client }
+        format.html do
+          redirect_to @client,
+                      notice: 'Client was successfully created.'
+        end
+        format.json do
+          render action: 'show',
+                 status: :created, location: @client
+        end
       else
         format.html { render action: 'new' }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @client.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -45,11 +55,17 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+        format.html do
+          redirect_to @client,
+                      notice: 'Client was successfully updated.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @client.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -66,7 +82,8 @@ class ClientsController < ApplicationController
 
   private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
   def client_params
     params.require(:client).permit(:name, :email, :address)
   end

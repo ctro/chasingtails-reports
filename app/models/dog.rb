@@ -9,7 +9,6 @@
 #  client_id  :integer
 #  deleted_at :datetime
 #
-
 class Dog < ActiveRecord::Base
   acts_as_paranoid
 

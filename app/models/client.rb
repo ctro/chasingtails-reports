@@ -10,7 +10,6 @@
 #  updated_at :datetime
 #  deleted_at :datetime
 #
-
 class Client < ActiveRecord::Base
   acts_as_paranoid
 

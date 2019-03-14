@@ -8,7 +8,6 @@
 #  updated_at :datetime
 #  asset_id   :string(255)
 #
-
 class Image < ActiveRecord::Base
   belongs_to :report
   attachment :asset, type: :image

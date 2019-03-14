@@ -21,7 +21,6 @@
 #  deleted_at    :datetime
 #  no_show       :boolean          default(FALSE)
 #
-
 class Report < ActiveRecord::Base
   acts_as_paranoid
 
@@ -34,7 +33,8 @@ class Report < ActiveRecord::Base
   # Always
   validates_presence_of :client, :dogs, :walk_date, :walk_time, :walk_duration
 
-  validates_presence_of :weather, :recap, :pees, :poops, :energy, :vocalization, :overall,
+  validates_presence_of :weather, :recap, :pees, :poops, :energy,
+                        :vocalization, :overall,
                         unless: :no_show?
 
   # Validates this format: YYYY-M(M)-D(D)
@@ -52,11 +52,16 @@ class Report < ActiveRecord::Base
                                   message: 'Date should look like YYYY-MM-DD' }
 
   # Most browsers show a time selector, this message is aimed at older browsers.
-  validates :walk_time, format: { with: TIME_REGEX,
-                                  message: 'Time should look like HH:MM -- yeah, military time.' }
+  validates :walk_time,
+            format:
+            {
+              with: TIME_REGEX,
+              message: 'Time should look like HH:MM -- yeah, military time.'
+            }
 
-  validates :walk_duration, format: { with: DURATION_REGEX,
-                                      message: 'Duration should be a number like 60 or 90' }
+  validates :walk_duration,
+            format: { with: DURATION_REGEX,
+                      message: 'Duration should be a number like 60 or 90' }
 
   validate :presence_of_images, unless: :no_show?
 
@@ -88,7 +93,7 @@ class Report < ActiveRecord::Base
   end
 
   def presence_of_images
-    unless images.any? { |i| !i.asset.nil? }
+    if images.none? { |i| !i.asset.nil? }
       errors[:base] << 'You have to attach at least one image.'
     end
   end

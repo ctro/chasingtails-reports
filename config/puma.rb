@@ -15,7 +15,8 @@ environment rails_env
 bind "unix://#{shared_dir}/sockets/puma.sock"
 
 # Logging
-stdout_redirect "#{shared_dir}/log/puma.stdout.log", "#{shared_dir}/log/puma.stderr.log", true
+stdout_redirect("#{shared_dir}/log/puma.stdout.log",
+                "#{shared_dir}/log/puma.stderr.log", true)
 
 # Set master PID and state locations
 pidfile "#{shared_dir}/pids/puma.pid"
@@ -29,5 +30,7 @@ on_worker_boot do
   rescue StandardError
     ActiveRecord::ConnectionNotEstablished
   end
-  ActiveRecord::Base.establish_connection(YAML.load_file("#{app_dir}/config/database.yml")[rails_env])
+  ActiveRecord::Base.establish_connection(
+    YAML.load_file("#{app_dir}/config/database.yml")[rails_env]
+  )
 end

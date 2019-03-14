@@ -1,3 +1,4 @@
+# Users Controller
 class UsersController < ApplicationController
   load_resource only: %i[show edit update destroy]
   authorize_resource
@@ -11,9 +12,10 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    # group by commercial week (1..53)
     @reports = @user.reports.includes(:dogs)
                     .order('walk_date DESC')
-                    .group_by { |r| r.walk_date.strftime('%Y / %V') } # <-- group by commercial week (1..53)
+                    .group_by { |r| r.walk_date.strftime('%Y / %V') }
   end
 
   # GET /users/new
@@ -31,7 +33,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html do
+          redirect_to @user,
+                      notice: 'User was successfully created.'
+        end
         format.json { render action: 'show', status: :created, location: @user }
       else
         format.html { render action: 'new' }
@@ -56,7 +61,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if successfully_updated
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html do
+          redirect_to @user,
+                      notice: 'User was successfully updated.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -89,8 +97,10 @@ class UsersController < ApplicationController
 
   private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation)
   end
 end

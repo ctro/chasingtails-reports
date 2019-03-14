@@ -1,6 +1,7 @@
-# This one breaks tests
 Style/ClassAndModuleChildren:
-  EnforcedStyle: compact
+  Exclude:
+    - config/**/*
+    - test/**/*
 
 Metrics/ClassLength:
   Max: 200
@@ -12,8 +13,12 @@ Metrics/BlockLength:
 Metrics/LineLength:
   Exclude:
     - db/**/*
+    - config/initializers/*
+    - config/*
+    - Guardfile
 
 Metrics/MethodLength:
+  Max: 30
   Exclude:
     - db/**/*
 

@@ -1,3 +1,4 @@
+# Client Helper Module
 module ClientsHelper
   def dog_links(client)
     client.dogs.map do |d|
