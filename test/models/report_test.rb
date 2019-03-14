@@ -33,7 +33,6 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   test 'unconditional required data' do
-    x = 10
     assert @sr.save
 
     @sr.client = nil
@@ -99,9 +98,9 @@ class ReportTest < ActiveSupport::TestCase
     @slgr = reports(:StellaLanieGrace)
     # Fixture relationships seem broken :shrug:
     @slgr.dogs = [dogs(:Stella), dogs(:Lanie), dogs(:Grace)]
-    assert_match /Stella/, reports(:StellaLanieGrace).dog_names
-    assert_match /Lanie/, reports(:StellaLanieGrace).dog_names
-    assert_match /Grace/, reports(:StellaLanieGrace).dog_names
+    assert_match(/Stella/, reports(:StellaLanieGrace).dog_names)
+    assert_match(/Lanie/, reports(:StellaLanieGrace).dog_names)
+    assert_match(/Grace/, reports(:StellaLanieGrace).dog_names)
 
     assert_equal '09:00 am', reports(:Stella).formatted_walk_time
   end

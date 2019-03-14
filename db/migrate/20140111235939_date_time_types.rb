@@ -1,3 +1,4 @@
+# Don't use reserved names
 class DateTimeTypes < ActiveRecord::Migration
   def change
     rename_column :reports, :date, :walk_date

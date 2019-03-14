@@ -23,7 +23,8 @@ ActiveRecord::Schema.define(version: 20_161_104_213_020) do
     t.datetime 'deleted_at'
   end
 
-  add_index 'clients', ['deleted_at'], name: 'index_clients_on_deleted_at', using: :btree
+  add_index 'clients', ['deleted_at'], name: 'index_clients_on_deleted_at',
+                                       using: :btree
 
   create_table 'dogs', force: :cascade do |t|
     t.string   'name'
@@ -33,7 +34,8 @@ ActiveRecord::Schema.define(version: 20_161_104_213_020) do
     t.datetime 'deleted_at'
   end
 
-  add_index 'dogs', ['deleted_at'], name: 'index_dogs_on_deleted_at', using: :btree
+  add_index 'dogs', ['deleted_at'], name: 'index_dogs_on_deleted_at',
+                                    using: :btree
 
   create_table 'images', force: :cascade do |t|
     t.integer  'report_id'
@@ -50,7 +52,8 @@ ActiveRecord::Schema.define(version: 20_161_104_213_020) do
     t.datetime 'deleted_at'
   end
 
-  add_index 'report_dogs', ['deleted_at'], name: 'index_report_dogs_on_deleted_at', using: :btree
+  add_index 'report_dogs', ['deleted_at'],
+            name: 'index_report_dogs_on_deleted_at', using: :btree
 
   create_table 'reports', force: :cascade do |t|
     t.date     'walk_date'
@@ -74,7 +77,8 @@ ActiveRecord::Schema.define(version: 20_161_104_213_020) do
     t.float    'lng'
   end
 
-  add_index 'reports', ['deleted_at'], name: 'index_reports_on_deleted_at', using: :btree
+  add_index 'reports', ['deleted_at'], name: 'index_reports_on_deleted_at',
+                                       using: :btree
 
   create_table 'users', force: :cascade do |t|
     t.string   'email',                  default: '', null: false
@@ -94,7 +98,11 @@ ActiveRecord::Schema.define(version: 20_161_104_213_020) do
     t.datetime 'deleted_at'
   end
 
-  add_index 'users', ['deleted_at'], name: 'index_users_on_deleted_at', using: :btree
-  add_index 'users', ['email'], name: 'index_users_on_email', unique: true, using: :btree
-  add_index 'users', ['reset_password_token'], name: 'index_users_on_reset_password_token', unique: true, using: :btree
+  add_index('users', ['deleted_at'], name: 'index_users_on_deleted_at',
+                                     using: :btree)
+  add_index('users', ['email'], name: 'index_users_on_email',
+                                unique: true, using: :btree)
+  add_index('users', ['reset_password_token'],
+            name: 'index_users_on_reset_password_token',
+            unique: true, using: :btree)
 end

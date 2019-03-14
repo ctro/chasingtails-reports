@@ -1,0 +1,19 @@
+# This one breaks tests
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+    - db/**/*
+
+Metrics/LineLength:
+  Exclude:
+    - db/**/*
+
+Metrics/MethodLength:
+  Exclude:
+    - db/**/*
+

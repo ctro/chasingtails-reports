@@ -42,17 +42,20 @@ class ClientsControllerTest < ActionController::TestCase
   test 'clients are present on index' do
     get :index
 
-    assert_match %r{Stephanie &amp; Clay</a>}, response.body # Should be a link to Client
-    assert_match /mailto:steph@email.com/, response.body # Should be a link that opens an email
-    assert_match /Rancher and Hansen/, response.body
-    assert_match %r{Stella</a>}, response.body # Should be a link to each dog
-    assert_match %r{Lanie</a>}, response.body
-    assert_match %r{Grace</a>}, response.body
+    # Should be a link to Client
+    assert_match(%r{Stephanie &amp; Clay</a>}, response.body)
+    assert_match(/mailto:steph@email.com/, response.body)
+    # Should be a link that opens an email
+    assert_match(/Rancher and Hansen/, response.body)
+    assert_match(%r{Stella</a>}, response.body)
+    # Should be a link to each dog
+    assert_match(%r{Lanie</a>}, response.body)
+    assert_match(%r{Grace</a>}, response.body)
 
-    assert_match /Morris/, response.body
-    assert_match /mailto:morris@gmail.com/, response.body
-    assert_match /Hansen Alley/, response.body
-    assert_match %r{PussyJamboree</a>}, response.body
+    assert_match(/Morris/, response.body)
+    assert_match(/mailto:morris@gmail.com/, response.body)
+    assert_match(/Hansen Alley/, response.body)
+    assert_match(%r{PussyJamboree</a>}, response.body)
   end
 
   # Some tests require that the fixture have an ID.
@@ -63,19 +66,19 @@ class ClientsControllerTest < ActionController::TestCase
     get :show, id: client
     assert_response :success
 
-    assert_match client.name, response.body
-    assert_match client.email, response.body
-    assert_match client.address, response.body
-    assert_match /IDDOG/, response.body # 2 dogs displayed
-    assert_match /IDDOG2/, response.body
+    assert_match(client.name, response.body)
+    assert_match(client.email, response.body)
+    assert_match(client.address, response.body)
+    assert_match(/IDDOG/, response.body) # 2 dogs displayed
+    assert_match(/IDDOG2/, response.body)
 
     # Walks should be shown
-    assert_match /2016-01-01/, response.body
-    assert_match /2016-01-15/, response.body
-    assert_match /09:00 am/, response.body
-    assert_match /60 min/, response.body
-    assert_match /3.25 hours/, response.body # Month total from reports.yml
-    assert_match /January/, response.body # Month total
+    assert_match(/2016-01-01/, response.body)
+    assert_match(/2016-01-15/, response.body)
+    assert_match(/09:00 am/, response.body)
+    assert_match(/60 min/, response.body)
+    assert_match(/3.25 hours/, response.body) # Month total from reports.yml
+    assert_match(/January/, response.body) # Month total
   end
 
   test 'new' do
@@ -93,14 +96,15 @@ class ClientsControllerTest < ActionController::TestCase
 
   test 'create' do
     assert_difference('Client.count', 1) do
-      post :create, client: { name: 'Clint Troxel', email: 'clint@ctro.net', address: 'box 2101 83001' }
+      post :create, client: { name: 'Clint Troxel', email: 'clint@ctro.net',
+                              address: 'box 2101 83001' }
     end
 
     client = assigns(:client)
     assert_redirected_to client_path(client)
     assert client.is_a?(Client)
     assert client.created_at
-    assert_match /success/, flash[:notice]
+    assert_match(/success/, flash[:notice])
   end
 
   test 'failed create' do
@@ -108,22 +112,22 @@ class ClientsControllerTest < ActionController::TestCase
       post :create, client: { name: '', email: '', address: '' }
     end
 
-    assert_match /error/, response.body
-    assert_match /be blank/, response.body
+    assert_match(/error/, response.body)
+    assert_match(/be blank/, response.body)
   end
 
   test 'update' do
-    newAddress = 'In a van down by the river'
-    put :update, id: @morris.id, client: { address: newAddress }
+    new_address = 'In a van down by the river'
+    put :update, id: @morris.id, client: { address: new_address }
     assert_redirected_to client_url(@morris)
-    assert_match newAddress, assigns(:client).address
-    assert_match /success/, flash[:notice]
+    assert_match new_address, assigns(:client).address
+    assert_match(/success/, flash[:notice])
   end
 
   test 'failed update' do
     put :update, id: @morris.id, client: { name: '' }
-    assert_match /error/, response.body
-    assert_match /be blank/, response.body
+    assert_match(/error/, response.body)
+    assert_match(/be blank/, response.body)
   end
 
   test 'destroy' do

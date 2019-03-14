@@ -1,3 +1,4 @@
+# Rename things for a new uploader
 class RenameAssets < ActiveRecord::Migration
   def change
     # Rename Assets.picture to Assets.asset

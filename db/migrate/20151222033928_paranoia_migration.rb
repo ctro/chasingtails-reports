@@ -1,3 +1,4 @@
+# Itroduce paranoia -- don't ever really delete anything.
 class ParanoiaMigration < ActiveRecord::Migration
   def change
     add_column :clients, :deleted_at, :datetime

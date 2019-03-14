@@ -1,3 +1,4 @@
+# Many dogs
 class CreateReportDogs < ActiveRecord::Migration
   def change
     create_table :report_dogs do |t|

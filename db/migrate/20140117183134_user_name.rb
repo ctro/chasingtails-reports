@@ -1,3 +1,4 @@
+# Add full name
 class UserName < ActiveRecord::Migration
   def self.up
     add_column :users, :name, :string

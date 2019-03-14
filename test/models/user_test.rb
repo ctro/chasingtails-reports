@@ -40,6 +40,6 @@ class UserTest < ActiveSupport::TestCase
   test 'password requirements' do
     @b.password = 'secret'
     refute @b.validate
-    assert_match /8 characters/, @b.errors.messages.to_s
+    assert_match(/8 characters/, @b.errors.messages.to_s)
   end
 end

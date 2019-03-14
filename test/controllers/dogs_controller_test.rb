@@ -24,10 +24,10 @@ class DogsControllerTest < ActionController::TestCase
     get :index, client_id: @steph.id
     assert_response :success
 
-    assert_match /Stella/, response.body
-    assert_match /Lanie/, response.body
-    assert_match /Grace/, response.body
-    assert_match /New Dog/, response.body
+    assert_match(/Stella/, response.body)
+    assert_match(/Lanie/, response.body)
+    assert_match(/Grace/, response.body)
+    assert_match(/New Dog/, response.body)
   end
 
   test 'checkboxes' do
@@ -37,20 +37,20 @@ class DogsControllerTest < ActionController::TestCase
       assert_equal 3, cb.count
     end
 
-    assert_match /Stella/, response.body
-    assert_match /Lanie/, response.body
-    assert_match /Grace/, response.body
+    assert_match(/Stella/, response.body)
+    assert_match(/Lanie/, response.body)
+    assert_match(/Grace/, response.body)
   end
 
   test 'show' do
     get :show, client_id: @steph.id, id: @stella.id
     assert_response 200
 
-    assert_match /Stella/, response.body
-    assert_match /Edit/, response.body
-    assert_match /Destroy/, response.body
-    assert_match /Back/, response.body
-    refute_match /Lanie/, response.body
+    assert_match(/Stella/, response.body)
+    assert_match(/Edit/, response.body)
+    assert_match(/Destroy/, response.body)
+    assert_match(/Back/, response.body)
+    refute_match(/Lanie/, response.body)
   end
 
   test 'new' do
@@ -75,7 +75,7 @@ class DogsControllerTest < ActionController::TestCase
     assert_redirected_to client_path(@steph)
     assert dog.is_a?(Dog)
     assert dog.created_at
-    assert_match /success/, flash[:notice]
+    assert_match(/success/, flash[:notice])
   end
 
   test 'failed create' do
@@ -83,23 +83,23 @@ class DogsControllerTest < ActionController::TestCase
       post :create, client_id: @steph.id, dog: { name: '' }
     end
     assert_response 200
-    assert_match /error/, response.body
-    assert_match /be blank/, response.body
+    assert_match(/error/, response.body)
+    assert_match(/be blank/, response.body)
   end
 
   test 'update' do
-    newName = 'Leñas'
-    put :update, client_id: @steph.id, id: @lanie.id, dog: { name: newName }
+    new_name = 'Leñas'
+    put :update, client_id: @steph.id, id: @lanie.id, dog: { name: new_name }
     assert_redirected_to client_url(@steph)
-    assert_match newName, assigns(:dog).name
-    assert_match /success/, flash[:notice]
+    assert_match new_name, assigns(:dog).name
+    assert_match(/success/, flash[:notice])
   end
 
   test 'failed update' do
     put :update, client_id: @steph.id, id: @grace.id, dog: { name: '' }
     assert_response 200
-    assert_match /error/, response.body
-    assert_match /be blank/, response.body
+    assert_match(/error/, response.body)
+    assert_match(/be blank/, response.body)
   end
 
   test 'destroy' do

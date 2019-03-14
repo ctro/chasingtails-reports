@@ -27,16 +27,16 @@ class ReportsControllerTest < ActionController::TestCase
     get :index
     assert_response 200
 
-    assert_match /Previous/, response.body
-    assert_match /Next/, response.body
+    assert_match(/Previous/, response.body)
+    assert_match(/Next/, response.body)
 
-    assert_match /January 15, 2016/, response.body
-    assert_match /12:00 pm/, response.body
-    assert_match /09:00 am/, response.body
-    assert_match /Stephanie &amp; Clay/, response.body
-    assert_match /Stella/, response.body
-    assert_match /Lanie/, response.body
-    assert_match /Grace/, response.body
+    assert_match(/January 15, 2016/, response.body)
+    assert_match(/12:00 pm/, response.body)
+    assert_match(/09:00 am/, response.body)
+    assert_match(/Stephanie &amp; Clay/, response.body)
+    assert_match(/Stella/, response.body)
+    assert_match(/Lanie/, response.body)
+    assert_match(/Grace/, response.body)
 
     assert_match %r{reports/xxx000xxxoooxxx000xxxx}, response.body # uuid links
   end
@@ -73,13 +73,13 @@ class ReportsControllerTest < ActionController::TestCase
 
   test 'create' do
     assert_difference('Report.count', 1) do
-      r = post :create, report: {
+      post :create, report: {
         user_id: users(:Brad).id, client_id: clients(:Steph).id,
         dog_ids: [dogs(:Lanie).id, dogs(:Grace).id],
         walk_date: '2016-01-17', walk_time: '22:00', weather: 'sunny',
         recap: 'good walk', pees: 3, poops: 1, energy: 'high',
         vocalization: 'quiet', overall: 'GOOD DOG',
-        walk_date: '2019-03-14', walk_duration: '30', no_show: true
+        walk_duration: '30', no_show: true
       }
     end
 
@@ -87,7 +87,7 @@ class ReportsControllerTest < ActionController::TestCase
     assert_redirected_to report_path(report)
     assert report.is_a?(Report)
     assert report.created_at
-    assert_match /success/, flash[:notice]
+    assert_match(/success/, flash[:notice])
   end
 
   # !!! This test actually uploads a 1x1PNG file to S3/tails-test bucket...
@@ -97,8 +97,8 @@ class ReportsControllerTest < ActionController::TestCase
         user_id: users(:Brad).id, client_id: clients(:Steph).id,
         dog_ids: [dogs(:Lanie).id, dogs(:Grace).id], walk_date: '2016-01-17',
         walk_time: '22:00', walk_duration: '30', weather: 'ok', recap: 'ok',
-        pees: 'ok', poops: 'ok', energy: 'ok', vocalization: 'ok', overall: 'ok',
-        images_attributes: [
+        pees: 'ok', poops: 'ok', energy: 'ok', vocalization: 'ok',
+        overall: 'ok', images_attributes: [
           { asset: fixture_file_upload('files/1x1.png', 'image/png', true) }
         ]
       }
@@ -112,8 +112,8 @@ class ReportsControllerTest < ActionController::TestCase
     assert_response 200
 
     # New image show in edit page
-    assert_match /This is saved as/, response.body
-    assert_match /Choose again to overwrite/, response.body
+    assert_match(/This is saved as/, response.body)
+    assert_match(/Choose again to overwrite/, response.body)
   end
 
   test 'image validation' do
@@ -128,7 +128,7 @@ class ReportsControllerTest < ActionController::TestCase
 
     report = assigns(:report)
     assert_equal 1, report.errors.size
-    assert_match /at least one image/, report.errors.first.to_s
+    assert_match(/at least one image/, report.errors.first.to_s)
   end
 
   test 'failed create' do
@@ -136,21 +136,21 @@ class ReportsControllerTest < ActionController::TestCase
       post :create, report: { user_id: users(:Brad).id, walk_date: '' }
     end
 
-    assert_match /error/, response.body
-    assert_match /be blank/, response.body
+    assert_match(/error/, response.body)
+    assert_match(/be blank/, response.body)
   end
 
   test 'update' do
     put :update, id: @report.uuid, report: { no_show: true }
     assert_redirected_to report_url(@report)
     assert assigns(:report).no_show
-    assert_match /success/, flash[:notice]
+    assert_match(/success/, flash[:notice])
   end
 
   test 'failed update' do
     put :update, id: @report.uuid, report: { walk_date: '' }
-    assert_match /error/, response.body
-    assert_match /be blank/, response.body
+    assert_match(/error/, response.body)
+    assert_match(/be blank/, response.body)
   end
 
   test 'destroy' do
