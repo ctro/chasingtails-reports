@@ -258,36 +258,36 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  annotate
-  aws-sdk
-  aws-ses
-  bitters
-  bourbon
-  cancan
-  coffee-rails
-  devise
-  dotenv-rails
-  guard
-  guard-minitest
-  jbuilder
-  jquery-rails
-  minitest
-  minitest-reporters
-  paranoia
-  pg
-  pry
-  puma
-  rails
-  refile
-  refile-mini_magick
-  refile-s3
-  sass-rails
-  simplecov
-  skylight
-  terminal-notifier-guard
-  thin
-  uglifier
-  will_paginate
+  annotate (~> 2.7)
+  aws-sdk (~> 2.7)
+  aws-ses (~> 0.6)
+  bitters (~> 1.0)
+  bourbon (~> 3.2)
+  cancan (~> 1.6)
+  coffee-rails (~> 4.0)
+  devise (~> 4.2)
+  dotenv-rails (~> 2.2)
+  guard (~> 2.14)
+  guard-minitest (~> 2.4)
+  jbuilder (~> 1.5)
+  jquery-rails (~> 4.2)
+  minitest (~> 5.10)
+  minitest-reporters (~> 1.1)
+  paranoia (~> 2.2)
+  pg (~> 0.19)
+  pry (~> 0.10)
+  puma (~> 3.7)
+  rails (~> 4.2)
+  refile (~> 0.6)
+  refile-mini_magick (~> 0.2)
+  refile-s3 (~> 0.2)
+  sass-rails (~> 4.0)
+  simplecov (~> 0.13)
+  skylight (~> 1.0)
+  terminal-notifier-guard (~> 1.7)
+  thin (~> 1.7)
+  uglifier (~> 3.0)
+  will_paginate (~> 3.1)
 
 RUBY VERSION
    ruby 2.3.8p459
