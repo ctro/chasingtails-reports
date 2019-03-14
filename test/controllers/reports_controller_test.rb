@@ -73,11 +73,15 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "create" do
     assert_difference('Report.count', 1) do
-      post :create, report: {
+      r = post :create, report: {
         user_id: users(:Brad).id, client_id: clients(:Steph).id,
         dog_ids: [dogs(:Lanie).id, dogs(:Grace).id],
-        walk_date: "2016-01-17", walk_time: "22:00",
-        walk_duration: "30", no_show: true }
+        walk_date: "2016-01-17", walk_time: "22:00", weather: "sunny",
+        recap: "good walk", pees: 3, poops: 1, energy: "high",
+        vocalization: "quiet", overall: "GOOD DOG",
+        walk_date: "2019-03-14", walk_duration: "30", no_show: true }
+
+      binding.pry
     end
 
     report = assigns(:report)

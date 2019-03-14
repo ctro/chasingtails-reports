@@ -103,7 +103,9 @@ class ReportsController < ApplicationController
     end
 
     def report_params
-      # Quit forking with strong params, users are authenticated!
-      params.require(:report).permit!
+      params.require(:report).permit(:walk_date, :walk_time, :weather, 
+        :recap, :pees, :poops,:energy, :vocalization, :overall, 
+        :walk_duration, :client_id, :user_id, :no_show, 
+        :dog_ids => [], :images_attributes => [:asset])
     end
 end
