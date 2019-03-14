@@ -22,3 +22,5 @@ Metrics/MethodLength:
   Exclude:
     - db/**/*
 
+Metrics/AbcSize:
+  Max: 25
