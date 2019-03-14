@@ -93,7 +93,7 @@ class Report < ActiveRecord::Base
   end
 
   def presence_of_images
-    return if images.none? { |i| !i.asset.nil? }
+    return unless images.none? { |i| !i.asset.nil? }
 
     errors[:base] << 'You have to attach at least one image.'
   end
