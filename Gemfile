@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Match to prod server
-ruby '2.3.8'
+ruby '~> 2.3'
 
 gem 'dotenv-rails', '~> 2.7'
 gem 'pg', '~> 0.21'
