@@ -7,6 +7,7 @@ workflow "Build and Test" {
 }
 
 ## Build the Dockerfile in the .github folder
+##  other actions will use this cached image
 action "Docker Build" {
   uses = "./.github/"
 }
@@ -20,13 +21,9 @@ action "Bundle" {
 
 ## Migrate the Database
 action "Migrate Database" {
-  needs = "Docker Build"
+  needs = "Bundle"
   uses = "./.github/"
-
-
   args = "bundle exec rake db:create"
-
-
   env = {
     RAILS_ENV = "test"
   }
