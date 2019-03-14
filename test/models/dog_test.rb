@@ -13,13 +13,11 @@
 require 'test_helper'
 
 class DogTest < ActiveSupport::TestCase
-
-  test "required data" do
+  test 'required data' do
     s = dogs(:Stella)
     assert s.save
 
-    s.name = ""
+    s.name = ''
     refute s.validate
   end
-
 end

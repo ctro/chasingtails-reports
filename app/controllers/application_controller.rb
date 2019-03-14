@@ -10,15 +10,16 @@ class ApplicationController < ActionController::Base
   before_filter :set_mailer_host
 
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to root_url, :alert => exception.message
+    redirect_to root_url, alert: exception.message
   end
 
-	private
-  def after_sign_out_path_for(resource_or_scope)
-  	new_user_session_path
-	end
+  private
+
+  def after_sign_out_path_for(_resource_or_scope)
+    new_user_session_path
+  end
 
   def set_mailer_host
-    ActionMailer::Base.default_url_options = {:host => request.host_with_port}
+    ActionMailer::Base.default_url_options = { host: request.host_with_port }
   end
 end

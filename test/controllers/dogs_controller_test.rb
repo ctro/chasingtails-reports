@@ -12,7 +12,7 @@ class DogsControllerTest < ActionController::TestCase
     sign_in(@hal)
   end
 
-  test "admin only access" do
+  test 'admin only access' do
     sign_out(@hal)
     sign_in(users(:Brad))
     get :index, client_id: @steph.id
@@ -20,7 +20,7 @@ class DogsControllerTest < ActionController::TestCase
   end
 
   # index isn't really in the UI atm...
-  test "index" do
+  test 'index' do
     get :index, client_id: @steph.id
     assert_response :success
 
@@ -30,7 +30,7 @@ class DogsControllerTest < ActionController::TestCase
     assert_match /New Dog/, response.body
   end
 
-  test "checkboxes" do
+  test 'checkboxes' do
     get :checkboxes, client_id: @steph.id
     assert_response :success
     assert_select 'input', type: 'checkbox' do |cb|
@@ -42,7 +42,7 @@ class DogsControllerTest < ActionController::TestCase
     assert_match /Grace/, response.body
   end
 
-  test "show" do
+  test 'show' do
     get :show, client_id: @steph.id, id: @stella.id
     assert_response 200
 
@@ -53,22 +53,22 @@ class DogsControllerTest < ActionController::TestCase
     refute_match /Lanie/, response.body
   end
 
-  test "new" do
+  test 'new' do
     get :new, client_id: @steph.id
     assert_response 200
   end
 
-  test "edit" do
+  test 'edit' do
     get :edit, client_id: @steph.id, id: @stella.id
     assert_response 200
 
-    assert_select "form"
-    assert_select "input#dog_name", value: @stella.name
+    assert_select 'form'
+    assert_select 'input#dog_name', value: @stella.name
   end
 
-  test "create" do
+  test 'create' do
     assert_difference('Dog.count', 1) do
-      post :create, client_id: @steph.id, dog: {name: "Niko"}
+      post :create, client_id: @steph.id, dog: { name: 'Niko' }
     end
 
     dog = assigns(:dog)
@@ -78,35 +78,34 @@ class DogsControllerTest < ActionController::TestCase
     assert_match /success/, flash[:notice]
   end
 
-  test "failed create" do
+  test 'failed create' do
     assert_difference('Dog.count', 0) do
-      post :create, client_id: @steph.id, dog: {name: ""}
+      post :create, client_id: @steph.id, dog: { name: '' }
     end
     assert_response 200
     assert_match /error/, response.body
     assert_match /be blank/, response.body
   end
 
-  test "update" do
-    newName = "Leñas"
-    put :update, client_id: @steph.id, id: @lanie.id, dog: {name: newName}
+  test 'update' do
+    newName = 'Leñas'
+    put :update, client_id: @steph.id, id: @lanie.id, dog: { name: newName }
     assert_redirected_to client_url(@steph)
     assert_match newName, assigns(:dog).name
     assert_match /success/, flash[:notice]
   end
 
-  test "failed update" do
-    put :update, client_id: @steph.id, id: @grace.id, dog: {name: ""}
+  test 'failed update' do
+    put :update, client_id: @steph.id, id: @grace.id, dog: { name: '' }
     assert_response 200
     assert_match /error/, response.body
     assert_match /be blank/, response.body
   end
 
-  test "destroy" do
+  test 'destroy' do
     assert_difference('Dog.count', -1) do
-      delete :destroy, :client_id => @steph.id, :id => @lanie.id
+      delete :destroy, client_id: @steph.id, id: @lanie.id
     end
     assert_redirected_to client_path(@steph)
   end
-
 end

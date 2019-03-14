@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  load_resource only: [:show, :edit, :update, :destroy]
+  load_resource only: %i[show edit update destroy]
   authorize_resource
 
   # GET /users
@@ -11,9 +11,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @reports = @user.reports.includes(:dogs).
-      order("walk_date DESC").
-      group_by{ |r| r.walk_date.strftime("%Y / %V") }  # <-- group by commercial week (1..53)
+    @reports = @user.reports.includes(:dogs)
+                    .order('walk_date DESC')
+                    .group_by { |r| r.walk_date.strftime('%Y / %V') } # <-- group by commercial week (1..53)
   end
 
   # GET /users/new
@@ -22,8 +22,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users
   # POST /users.json
@@ -84,13 +83,14 @@ class UsersController < ApplicationController
   # GET /user/1/put_back
   def put_back
     User.restore(params[:id], recursive: true)
-    flash[:notice] = "Successfully put back"
+    flash[:notice] = 'Successfully put back'
     redirect_to users_url
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
 end

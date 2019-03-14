@@ -10,6 +10,6 @@
 #
 
 class Image < ActiveRecord::Base
-	belongs_to :report
-	attachment :asset, type: :image
+  belongs_to :report
+  attachment :asset, type: :image
 end

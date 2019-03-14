@@ -11,8 +11,8 @@
 #
 
 class ReportDog < ActiveRecord::Base
-	acts_as_paranoid
-	
-	belongs_to :report
-	belongs_to :dog
+  acts_as_paranoid
+
+  belongs_to :report
+  belongs_to :dog
 end

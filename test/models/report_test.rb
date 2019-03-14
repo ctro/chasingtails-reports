@@ -25,7 +25,6 @@
 require 'test_helper'
 
 class ReportTest < ActiveSupport::TestCase
-
   def setup
     @sr = reports(:Stella)
 
@@ -33,20 +32,19 @@ class ReportTest < ActiveSupport::TestCase
     @sr.dogs = [dogs(:Stella)]
   end
 
-  test "unconditional required data" do
-
-    x=10
+  test 'unconditional required data' do
+    x = 10
     assert @sr.save
 
     @sr.client = nil
     @sr.dogs = []
-    @sr.walk_date = ""
-    @sr.walk_time = ""
-    @sr.walk_duration = ""
+    @sr.walk_date = ''
+    @sr.walk_time = ''
+    @sr.walk_duration = ''
     refute @sr.validate
 
-    %w(client dogs walk_date walk_time walk_duration).each do |attribute|
-      assert @sr.errors.keys.include?(attribute.to_sym)
+    %w[client dogs walk_date walk_time walk_duration].each do |attribute|
+      assert @sr.errors.key?(attribute.to_sym)
     end
 
     # This does not change with :no_show:
@@ -54,16 +52,16 @@ class ReportTest < ActiveSupport::TestCase
     refute @sr.save
   end
 
-  test "conditional required data" do
+  test 'conditional required data' do
     assert @sr.save
 
-    @sr.weather = ""
-    @sr.recap = ""
-    @sr.pees = ""
-    @sr.poops = ""
-    @sr.energy = ""
-    @sr.vocalization = ""
-    @sr.overall = ""
+    @sr.weather = ''
+    @sr.recap = ''
+    @sr.pees = ''
+    @sr.poops = ''
+    @sr.energy = ''
+    @sr.vocalization = ''
+    @sr.overall = ''
     refute @sr.validate
     assert_equal 7, @sr.errors.count
 
@@ -72,7 +70,7 @@ class ReportTest < ActiveSupport::TestCase
     assert @sr.validate
   end
 
-  test "images are not required when no_show is true" do
+  test 'images are not required when no_show is true' do
     assert_equal false, @sr.no_show
     assert @sr.validate
     @sr.images = []
@@ -81,7 +79,7 @@ class ReportTest < ActiveSupport::TestCase
     assert @sr.validate
   end
 
-  test "expected fixture relationships" do
+  test 'expected fixture relationships' do
     assert_equal @sr.client, clients(:Steph)
     assert_equal @sr.user, users(:Hal)
     assert_equal @sr.dogs, [dogs(:Stella)]
@@ -89,14 +87,14 @@ class ReportTest < ActiveSupport::TestCase
   end
 
   # A similar test for walk_duration doesn't work b/c it's an integer
-  # A similar test for walk_date doesn't work b/c it's a date 
-  test "time format validations" do
-    @sr.walk_time = "$04:20!"
+  # A similar test for walk_date doesn't work b/c it's a date
+  test 'time format validations' do
+    @sr.walk_time = '$04:20!'
     assert_equal false, @sr.validate
   end
-  
-  test "formatted things" do
-    assert_equal @sr.dog_names, "Stella"
+
+  test 'formatted things' do
+    assert_equal @sr.dog_names, 'Stella'
 
     @slgr = reports(:StellaLanieGrace)
     # Fixture relationships seem broken :shrug:
@@ -105,7 +103,6 @@ class ReportTest < ActiveSupport::TestCase
     assert_match /Lanie/, reports(:StellaLanieGrace).dog_names
     assert_match /Grace/, reports(:StellaLanieGrace).dog_names
 
-    assert_equal "09:00 am", reports(:Stella).formatted_walk_time
+    assert_equal '09:00 am', reports(:Stella).formatted_walk_time
   end
-
 end

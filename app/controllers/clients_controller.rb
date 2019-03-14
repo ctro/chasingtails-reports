@@ -1,5 +1,5 @@
 class ClientsController < ApplicationController
-  load_resource only: [:show, :edit, :update, :destroy]
+  load_resource only: %i[show edit update destroy]
   authorize_resource
 
   # GET /clients
@@ -11,10 +11,9 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @reports = @client.reports.includes(:dogs).
-      order("walk_date DESC").
-      group_by{ |r| Date::MONTHNAMES[r.walk_date.month] }
-
+    @reports = @client.reports.includes(:dogs)
+                      .order('walk_date DESC')
+                      .group_by { |r| Date::MONTHNAMES[r.walk_date.month] }
   end
 
   # GET /clients/new
@@ -23,8 +22,7 @@ class ClientsController < ApplicationController
   end
 
   # GET /clients/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /clients
   # POST /clients.json
@@ -67,8 +65,9 @@ class ClientsController < ApplicationController
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def client_params
-      params.require(:client).permit(:name, :email, :address)
-    end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def client_params
+    params.require(:client).permit(:name, :email, :address)
+  end
 end

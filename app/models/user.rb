@@ -31,5 +31,5 @@ class User < ActiveRecord::Base
 
   has_many :reports
 
-  validates :name, presence: true  # Devise requires email already
+  validates :name, presence: true # Devise requires email already
 end
