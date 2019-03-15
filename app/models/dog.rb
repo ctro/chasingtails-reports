@@ -9,13 +9,12 @@
 #  client_id  :integer
 #  deleted_at :datetime
 #
-
 class Dog < ActiveRecord::Base
-	acts_as_paranoid
-	
-	belongs_to :client
-	has_many :report_dogs, :dependent => :destroy
-	has_many :reports, :through => :report_dogs
+  acts_as_paranoid
 
-	validates_presence_of :name
+  belongs_to :client
+  has_many :report_dogs, dependent: :destroy
+  has_many :reports, through: :report_dogs
+
+  validates :name, presence: true
 end

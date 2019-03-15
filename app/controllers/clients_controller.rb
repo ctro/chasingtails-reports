@@ -1,5 +1,6 @@
+# Clients Controller
 class ClientsController < ApplicationController
-  load_resource only: [:show, :edit, :update, :destroy]
+  load_resource only: %i[show edit update destroy]
   authorize_resource
 
   # GET /clients
@@ -11,10 +12,9 @@ class ClientsController < ApplicationController
   # GET /clients/1
   # GET /clients/1.json
   def show
-    @reports = @client.reports.includes(:dogs).
-      order("walk_date DESC").
-      group_by{ |r| Date::MONTHNAMES[r.walk_date.month] }
-
+    @reports = @client.reports.includes(:dogs)
+                      .order('walk_date DESC')
+                      .group_by { |r| Date::MONTHNAMES[r.walk_date.month] }
   end
 
   # GET /clients/new
@@ -23,8 +23,7 @@ class ClientsController < ApplicationController
   end
 
   # GET /clients/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /clients
   # POST /clients.json
@@ -33,11 +32,20 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client.save
-        format.html { redirect_to @client, notice: 'Client was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @client }
+        format.html do
+          redirect_to @client,
+                      notice: 'Client was successfully created.'
+        end
+        format.json do
+          render action: 'show',
+                 status: :created, location: @client
+        end
       else
         format.html { render action: 'new' }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @client.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -47,11 +55,17 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client was successfully updated.' }
+        format.html do
+          redirect_to @client,
+                      notice: 'Client was successfully updated.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @client.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -67,8 +81,10 @@ class ClientsController < ApplicationController
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def client_params
-      params.require(:client).permit(:name, :email, :address)
-    end
+
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
+  def client_params
+    params.require(:client).permit(:name, :email, :address)
+  end
 end

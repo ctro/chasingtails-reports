@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable,
          :rememberable, :trackable, :validatable
 
-  has_many :reports
+  has_many :reports, inverse_of: :user, dependent: :destroy
 
-  validates :name, presence: true  # Devise requires email already
+  validates :name, presence: true # Devise requires email already
 end

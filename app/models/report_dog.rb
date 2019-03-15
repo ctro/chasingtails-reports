@@ -9,10 +9,9 @@
 #  updated_at :datetime
 #  deleted_at :datetime
 #
-
 class ReportDog < ActiveRecord::Base
-	acts_as_paranoid
-	
-	belongs_to :report
-	belongs_to :dog
+  acts_as_paranoid
+
+  belongs_to :report
+  belongs_to :dog
 end

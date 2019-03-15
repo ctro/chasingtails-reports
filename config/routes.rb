@@ -1,6 +1,5 @@
 Chasingtails::Application.routes.draw do
-
-  devise_for :users, :path_prefix => "auth"
+  devise_for :users, path_prefix: 'auth'
   resources :users do
     collection { get 'trash' }
     member { get 'put_back' }
@@ -16,6 +15,5 @@ Chasingtails::Application.routes.draw do
     end
   end
 
-  root :to => 'passthrough#index'
-
+  root to: 'passthrough#index'
 end

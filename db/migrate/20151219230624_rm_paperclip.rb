@@ -1,3 +1,4 @@
+# Move away from paperclip
 class RmPaperclip < ActiveRecord::Migration
   def change
     # We never enabled paperclip, so no worries.

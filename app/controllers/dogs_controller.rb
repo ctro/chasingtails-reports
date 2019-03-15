@@ -1,6 +1,7 @@
+# Dog Controller
 class DogsController < ApplicationController
   load_and_authorize_resource :client
-  load_resource :through => :client, only: [:show, :edit, :update, :destroy]
+  load_resource through: :client, only: %i[show edit update destroy]
   authorize_resource
 
   # before_action :set_client
@@ -8,18 +9,16 @@ class DogsController < ApplicationController
 
   # GET /dogs
   # GET /dogs.json
-  def index
-  end
+  def index; end
 
   # renders dog checkboxes for a client.
   def checkboxes
-    render :partial => "checkboxes"
+    render partial: 'checkboxes'
   end
 
   # GET /dogs/1
   # GET /dogs/1.json
-  def show
-  end
+  def show; end
 
   # GET /dogs/new
   def new
@@ -27,8 +26,7 @@ class DogsController < ApplicationController
   end
 
   # GET /dogs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /dogs
   # POST /dogs.json
@@ -37,8 +35,14 @@ class DogsController < ApplicationController
 
     respond_to do |format|
       if @dog.save
-        format.html { redirect_to @client, notice: 'Dog was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @client }
+        format.html do
+          redirect_to @client,
+                      notice: 'Dog was successfully created.'
+        end
+        format.json do
+          render action: 'show',
+                 status: :created, location: @client
+        end
       else
         format.html { render action: 'new' }
         format.json { render json: @dog.errors, status: :unprocessable_entity }
@@ -51,7 +55,10 @@ class DogsController < ApplicationController
   def update
     respond_to do |format|
       if @dog.update(dog_params)
-        format.html { redirect_to @client, notice: 'Dog was successfully updated.' }
+        format.html do
+          redirect_to @client,
+                      notice: 'Dog was successfully updated.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -71,8 +78,10 @@ class DogsController < ApplicationController
   end
 
   private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def dog_params
-      params.require(:dog).permit(:name, :client_id)
-    end
+
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
+  def dog_params
+    params.require(:dog).permit(:name, :client_id)
+  end
 end

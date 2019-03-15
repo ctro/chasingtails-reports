@@ -1,21 +1,21 @@
+# Reports Controller
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: %i[show edit update destroy]
   authorize_resource except: :show
 
-  skip_before_filter :authenticate_user!, only: :show
+  skip_before_action :authenticate_user!, only: :show
 
   # GET /reports
   # GET /reports.json
   def index
     # Paginate & eager load
     @reports = Report.includes(:client, :user, :dogs)
-      .order("created_at DESC").paginate(:page => params[:page])
+                     .order('created_at DESC').paginate(page: params[:page])
   end
 
   # GET /reports/1
   # GET /reports/1.json
-  def show
-  end
+  def show; end
 
   # GET /reports/new
   def new
@@ -37,12 +37,21 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @report }
+        format.html do
+          redirect_to @report,
+                      notice: 'Report was successfully created.'
+        end
+        format.json do
+          render action: 'show',
+                 status: :created, location: @report
+        end
       else
         ensure_3_images
         format.html { render action: 'new' }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @report.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -52,11 +61,17 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update(report_params)
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.html do
+          redirect_to @report,
+                      notice: 'Report was successfully updated.'
+        end
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
-        format.json { render json: @report.errors, status: :unprocessable_entity }
+        format.json do
+          render json: @report.errors,
+                 status: :unprocessable_entity
+        end
       end
     end
   end
@@ -73,37 +88,48 @@ class ReportsController < ApplicationController
 
   private
 
-    def set_report
-      @report = Report.includes(:user, :dogs, :images).find_by_uuid!(params[:id])
-    end
+  def set_report
+    @report = Report.includes(:user, :dogs, :images).find_by!(uuid: params[:id])
+  end
 
-    # I'm pretty sure this is all necessary because of a combination of
-    #  refile + accepts_nested_attributes_for, and not really using refile's :multiple option.
-    # Multiple option would be great, but it's not supported natively in android browsers...yet.
-    def ensure_3_images
-      # cached images stay in params, but HTML does not allow setting value of file attributes.
-      cached_image_data = params[:report][:images_attributes].values.
-        map{ |i| i["asset"] }.
-        reject{ |a| a.blank? } rescue []
+  # I'm pretty sure this is all necessary because of a combination of
+  #   refile + accepts_nested_attributes_for, and not really using refile's
+  #   :multiple option.
+  # Multiple option would be great, but it's not supported natively in
+  #   android browsers...yet.
+  def ensure_3_images
+    # cached images stay in params, but HTML does not allow setting value
+    #   of file attributes.
+    cache_data = begin
+                    params[:report][:images_attributes].values
+                                                       .map { |i| i['asset'] }
+                                                       .reject(&:blank?)
+                 rescue StandardError
+                   []
+                  end
 
-      @cached_images = cached_image_data.map do |data|
-        if data.is_a?(ActionDispatch::Http::UploadedFile)
-          # Sometimes this is a Rails Class
-          data.original_filename
-        else
-          # Sometimes it's just JSON, from refile I think.
-          JSON.parse(data)["filename"]
-        end
+    @cached_images = cache_data.map do |data|
+      if data.is_a?(ActionDispatch::Http::UploadedFile)
+        # Sometimes this is a Rails Class
+        data.original_filename
+      else
+        # Sometimes it's just JSON, from refile I think.
+        JSON.parse(data)['filename']
       end
-
-      # If they haven't cached/saved 3 images yet, then add some more upload buttons
-      total = @cached_images.size
-      total += @report.images.size if total == 0
-      (3 - total).times {@report.images.build}
     end
 
-    def report_params
-      # Quit forking with strong params, users are authenticated!
-      params.require(:report).permit!
-    end
+    # If they haven't cached/saved 3 images yet, then add some
+    #   more upload buttons
+    total = @cached_images.size
+    total += @report.images.size if total.zero?
+    (3 - total).times { @report.images.build }
+  end
+
+  def report_params
+    params.require(:report).permit(:walk_date, :walk_time, :weather,
+                                   :recap, :pees, :poops, :energy,
+                                   :vocalization, :overall, :walk_duration,
+                                   :client_id, :user_id, :no_show,
+                                   dog_ids: [], images_attributes: [:asset])
+  end
 end

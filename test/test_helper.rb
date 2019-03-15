@@ -1,5 +1,5 @@
-ENV["RAILS_ENV"] ||= "test"
-ENV["S3_BUCKET"] = "tails-test"
+ENV['RAILS_ENV'] ||= 'test'
+ENV['S3_BUCKET'] = 'tails-test'
 
 if ENV['COVERAGE']
   # Simplecov FIRST
@@ -7,10 +7,10 @@ if ENV['COVERAGE']
   SimpleCov.start 'rails'
 end
 
-require File.expand_path('../../config/environment', __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require 'rails/test_help'
 
-require "minitest/reporters"
+require 'minitest/reporters'
 Minitest::Reporters.use!
 
 class ActiveSupport::TestCase

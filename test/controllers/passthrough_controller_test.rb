@@ -7,15 +7,15 @@ class PassthroughControllerTest < ActionController::TestCase
   #  normal users go to new reports#new
   #  admins go to reports#index
 
-  test "passthrough as normal user" do
+  test 'passthrough as normal user' do
     sign_in(users(:Brad))
     get :index
-    assert_redirected_to new_report_path()
+    assert_redirected_to new_report_path
   end
 
-  test "passthrough as admin" do
+  test 'passthrough as admin' do
     sign_in(users(:Hal))
     get :index
-    assert_redirected_to reports_path()
+    assert_redirected_to reports_path
   end
 end

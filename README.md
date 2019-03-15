@@ -10,6 +10,7 @@ A simple web app for dog walkers using Rails and Postgres.
 [Install Docker Compose](https://github.com/docker/compose/releases)
 
 #### Quickstart
+
 ```
 docker-compose build
 docker-compose run web rake db:create
@@ -18,13 +19,18 @@ xgd-open http://localhost:3000
 ```
 
 #### Tests
-Run tests once: `docker-compose run web rake test`
-Or continuously: `docker-compose run web guard`
-With coverage: `docker-compose run web rake test:coverage` (open `coverage/index.html`)
 
-There is a test that uploads a 1x1png to S3.  You'll need to set up `tails-test` S3 Bucket same as `tails-dev`
+- Run tests once: `docker-compose run web rake test`
+- Or continuously: `docker-compose run web guard`
+- With coverage: `docker-compose run web rake test:coverage` (open `coverage/index.html`)
+- Pessimize Gemfile: `docker-compose run web pessimize`
+- Security Scan: `docker-compose run web brakeman`
+- Lint: `docker-compose run rubocop --rails`
+
+There is a test that uploads a 1x1png to S3. You'll need to set up `tails-test` S3 Bucket same as `tails-dev`
 
 #### More Docker commands
+
 Rebuild container: `docker-compose build web`
 Boot the app: `docker-compose up`
 List containers: `docker-compose ps`
@@ -33,6 +39,7 @@ Get a shell: `docker-compose exec web /bin/bash`
 Get a Rails console: `docker-compose run web rails console`
 
 #### Poke around in Postgres
+
 ```
 docker-compose exec db /bin/bash
 su postgres
@@ -44,16 +51,18 @@ select * from users;
 ```
 
 #### Debugging
+
 Add `binding.pry` where you want to stop.
 
 ## Production
 
 ### ENVironment
+
 See `/.env.example` for specifying ENV variables.
 We use [Dotenv](https://github.com/bkeepers/dotenv) to manage this.
 Real `.env` files are NOT checked in!
 
-Use an IAM user with limited ability for AWS credentials. User needs: 
+Use an IAM user with limited ability for AWS credentials. User needs:
 
 - `AmazonS3FullAccess` for S3 uploads
 - `CloudWatchFullAccess` for CloudWatch logging
@@ -68,36 +77,38 @@ Now you can launch an EC2 node from the AWS UI
 Pretty much everything should be installed and configured.
 See `image/` for source code.
 
-
 ### Production Emails
 
-Emails are delivered via Amazon SES.  SES requires you to verify domain ownership by adding DNS/TXT record.  SES requires manual setup via the SES dashboard.
-
+Emails are delivered via Amazon SES. SES requires you to verify domain ownership by adding DNS/TXT record. SES requires manual setup via the SES dashboard.
 
 ### Boot Production
 
 After launching the AMI you need to:
 
 #### Create the database
+
 ```
 sudo -i -u postgres
 createdb "tails_production"
 ```
 
 You can log into psql and do useful things:
+
 ```
 $ sudo -i -u postgres
 $ psql
-\l  
+\l
 \d
 \dt
 \c <db>
 \q
 ```
+
 See `db/backups/DUMP.markdown` for DB Export/Import instructions.
 
-Postgres backups happen via a build-in cron job.  They upload to S3.
+Postgres backups happen via a build-in cron job. They upload to S3.
 You need to create the bucket `tails-backups` and give it a policy restricted to the EC2 node's EIP
+
 ```
 {
 	"Version": "2012-10-17",
@@ -132,11 +143,12 @@ Currently Delete after 11 days.
 6. `cd /home/ubuntu`
 7. `psql <database_name> < <filename>`
 
-
 #### Set bucket policy for Cache
-The Refile gem uploads direct to s3://tails-production/cache.  Set a lifecycle policy to delete cache entries after some days.
+
+The Refile gem uploads direct to s3://tails-production/cache. Set a lifecycle policy to delete cache entries after some days.
 
 #### Install deps
+
 ```
 cd chasingtails-reports
 sudo gem install bundler
@@ -144,12 +156,19 @@ bundle install
 ```
 
 #### Add your env
+
 Don't forget to add your environment via a new `.env` file.
 
+Use an IAM user for the AWS credentialis. The user needs these permissions:
+
+- `AmazonS3FullAccess`
+
 #### Compile assets
+
 `RAILS_ENV=production rake assets:precompile`
 
 #### Migrate
+
 ```
 sudo -i -u postgres
 cd /home/ubuntu/chasingtails-reports
@@ -169,12 +188,15 @@ Manually add "MemoryUtilization" and "DiskSpaceUtilization" to CloudWatch dashbo
 `ssh -i .ssh\CTRO-AWS.pem ubuntu@52.35.135.245`
 
 #### (re)Start the server
+
 ```
 sudo restart puma-manager
 ```
 
 ### Deploys
+
 Are manual...
+
 ```
 cd chasingtails-reports
 git pull
@@ -187,15 +209,24 @@ RAILS_ENV=production rake assets:precompile
 sudo restart puma-manager
 ```
 
+Ruby versions are managed with rvm: [https://github.com/rvm/ubuntu_rvm](https://github.com/rvm/ubuntu_rvm).
+E.g.
+
+```
+rvm install ruby-2.3.8
+rvm --default use ruby-2.3.8
+```
+
 ### Releases
 
 Update `config/initializers/version.rb`
+
 ```
 git tag v0.0.0
 git push --tags
 ```
-Log into github and "Draft a new release"
 
+Log into github and "Draft a new release"
 
 ### Monitoring
 
@@ -210,12 +241,14 @@ https://papertrailapp.com/groups/2167163/events
 
 Papertrail also provides alerts on "500" or "Error -(RoutingError)" etc.
 
-
 ### Bugs
+
 Cloudwatch and SES stopped working b/c system clock was too far off.
+
 ```
 timedatectl  # to check date/time
 sudo ntpdate-debian  # to re-set time
 ```
+
 For now just keep the 'debian' version of ntpdate in cron so it keeps running.
 `0 0 * * * sudo ntpdate-debian`
