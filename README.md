@@ -209,6 +209,14 @@ RAILS_ENV=production rake assets:precompile
 sudo restart puma-manager
 ```
 
+Ruby versions are managed with rvm: [https://github.com/rvm/ubuntu_rvm](https://github.com/rvm/ubuntu_rvm).
+E.g.
+
+```
+rvm install ruby-2.3.8
+rvm --default use ruby-2.3.8
+```
+
 ### Releases
 
 Update `config/initializers/version.rb`
