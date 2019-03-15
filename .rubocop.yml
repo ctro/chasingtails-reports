@@ -1,10 +1,21 @@
+# General settings
+Metrics/ClassLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - db/**/*
+
+Metrics/AbcSize:
+  Max: 25
+
+
+# Specific Exclusions
 Style/ClassAndModuleChildren:
   Exclude:
     - config/**/*
     - test/**/*
-
-Metrics/ClassLength:
-  Max: 200
 
 Metrics/BlockLength:
   Exclude:
@@ -16,14 +27,6 @@ Metrics/LineLength:
     - config/initializers/*
     - config/*
     - Guardfile
-
-Metrics/MethodLength:
-  Max: 30
-  Exclude:
-    - db/**/*
-
-Metrics/AbcSize:
-  Max: 25
 
 Rails/OutputSafety:
   Exclude:
