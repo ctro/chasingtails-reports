@@ -215,6 +215,7 @@ E.g.
 ```
 rvm install ruby-2.3.8
 rvm --default use ruby-2.3.8
+sudo reboot
 ```
 
 ### Releases
