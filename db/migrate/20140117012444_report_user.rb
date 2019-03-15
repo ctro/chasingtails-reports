@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Reports!
 class ReportUser < ActiveRecord::Migration
   def change

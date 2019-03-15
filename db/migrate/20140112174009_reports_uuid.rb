@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Add uuid for report links
 class ReportsUuid < ActiveRecord::Migration
   def change

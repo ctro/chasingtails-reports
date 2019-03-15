@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Passthrough Controller
 class PassthroughController < ApplicationController
   def index

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Clients
 class CreateClients < ActiveRecord::Migration
   def change

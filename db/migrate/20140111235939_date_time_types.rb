@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Don't use reserved names
 class DateTimeTypes < ActiveRecord::Migration
   def change

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Add the first user to log in with
 # Should change this user once you log in
 class AddFirstUser < ActiveRecord::Migration

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Dog relationships
 class CreateAssociations < ActiveRecord::Migration
   def change

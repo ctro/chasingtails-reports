@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Client Helper Module
 module ClientsHelper
   def dog_links(client)

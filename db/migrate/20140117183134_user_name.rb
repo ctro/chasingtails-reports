@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Add full name
 class UserName < ActiveRecord::Migration
   def self.up

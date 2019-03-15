@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Always Auto-Orient
 Refile::MiniMagick.prepend(Module.new do
   %i[limit fit fill pad].each do |action|

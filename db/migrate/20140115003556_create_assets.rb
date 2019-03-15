@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Assets are pictures
 class CreateAssets < ActiveRecord::Migration
   def self.up

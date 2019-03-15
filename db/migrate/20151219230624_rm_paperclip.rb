@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Move away from paperclip
 class RmPaperclip < ActiveRecord::Migration
   def change

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Clients Controller
 class ClientsController < ApplicationController
   load_resource only: %i[show edit update destroy]

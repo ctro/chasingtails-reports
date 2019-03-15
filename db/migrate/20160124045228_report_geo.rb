@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Add geo for reports
 class ReportGeo < ActiveRecord::Migration
   def change

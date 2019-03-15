@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Itroduce paranoia -- don't ever really delete anything.
 class ParanoiaMigration < ActiveRecord::Migration
   def change

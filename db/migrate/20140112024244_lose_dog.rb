@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # move to many dogs.
 class LoseDog < ActiveRecord::Migration
   def up

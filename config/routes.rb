@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Chasingtails::Application.routes.draw do
   devise_for :users, path_prefix: 'auth'
   resources :users do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Report mailer
 class ReportMailer < ActionMailer::Base
   def new_report_email(report)

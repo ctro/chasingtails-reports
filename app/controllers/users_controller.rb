@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Users Controller
 class UsersController < ApplicationController
   load_resource only: %i[show edit update destroy]

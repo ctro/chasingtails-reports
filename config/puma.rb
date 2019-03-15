@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == cpu core count
 workers 1
 

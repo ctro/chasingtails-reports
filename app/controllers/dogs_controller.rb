@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Dog Controller
 class DogsController < ApplicationController
   load_and_authorize_resource :client

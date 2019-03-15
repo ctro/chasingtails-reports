@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Rename things for a new uploader
 class RenameAssets < ActiveRecord::Migration
   def change
