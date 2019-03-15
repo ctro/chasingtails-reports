@@ -24,3 +24,7 @@ Metrics/MethodLength:
 
 Metrics/AbcSize:
   Max: 25
+
+Rails/OutputSafety:
+  Exclude:
+    - app/helpers/clients_helper.rb
