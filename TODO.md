@@ -1,8 +1,5 @@
 # TODO
 
-- [ ] Brakeman warnings
-- [ ] Ruby / Rails update
-- [ ] TESTS
 - [ ] Actions CI for Brakeman, Tests
 
 Production deploy will include
