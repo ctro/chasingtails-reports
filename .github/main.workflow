@@ -1,58 +1,20 @@
 # Workflow
 
+# TODO: add database supported tests when Actions has docker-compose support.
+
 # On Push
-workflow "Build and Test" {
+workflow "Scans" {
   on = "push"
-  resolves = ["Lint"]
+  resolves = ["Rubocop Scan"]
 }
 
-## Build the Dockerfile in the .github folder
-##  other actions will use this cached image
-action "Docker Build" {
-  uses = "./.github/"
+action "Brakeman Scan" {
+  uses = "./.github/brakeman/"
+  args = "brakeman"
 }
 
-## Install gems
-action "Bundle" {
-  needs = "Docker Build"
-  uses = "./.github/"
-  args = "bundle install"
-}
-
-## Migrate the Database
-action "Migrate Database" {
-  needs = "Bundle"
-  uses = "./.github/"
-  args = "bundle exec rake db:create"
-  env = {
-    RAILS_ENV = "test"
-  }
-}
-
-## Run Tests
-action "Run Tests" {
-  needs = ["Migrate Database"]
-
-  # Use a custom Dockerfile for Github Actions
-  uses = "./.github/" 
-  args = "bundle exec rake test"
-  env = {
-    S3_BUCKET = "tails-dev"
-    AWS_DEFAULT_REGION = "us-west-2"
-  }
-  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
-}
-
-## Security Scan
-action "Security Scan" {
-  needs = ["Run Tests"]
-  uses = "./.github/"
-  args = "bundle exec brakeman"
-}
-
-## Linter
-action "Lint" {
-  needs = ["Security Scan"]
-  uses = "./.github/"
-  args = "bundle exec rubocop"
+action "Rubocop Scan" {
+  needs = "Brakeman Scan"
+  uses = "./.github/rubocop/"
+  args = "rubocop"
 }
