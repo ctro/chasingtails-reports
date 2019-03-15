@@ -25,17 +25,18 @@ class Report < ActiveRecord::Base
   acts_as_paranoid
 
   belongs_to :client
-  belongs_to :user, -> { with_deleted }
+  belongs_to :user, -> { with_deleted }, inverse_of: :reports
   has_many :report_dogs, dependent: :destroy
   has_many :dogs, through: :report_dogs
   has_many :images, dependent: :destroy
 
   # Always
-  validates_presence_of :client, :dogs, :walk_date, :walk_time, :walk_duration
+  validates :client, :dogs, :walk_date, :walk_time,
+            :walk_duration, presence: true
 
-  validates_presence_of :weather, :recap, :pees, :poops, :energy,
-                        :vocalization, :overall,
-                        unless: :no_show?
+  validates :weather, :recap, :pees, :poops, :energy,
+            :vocalization, :overall,
+            presence: { unless: :no_show? }
 
   # Validates this format: YYYY-M(M)-D(D)
   #   a little more lax than HTML5.
@@ -79,7 +80,7 @@ class Report < ActiveRecord::Base
   end
 
   def formatted_walk_time
-    walk_time.to_time.strftime('%I:%M %P')
+    Time.zone.parse(walk_time).strftime('%I:%M %P')
   end
 
   private

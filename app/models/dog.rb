@@ -16,5 +16,5 @@ class Dog < ActiveRecord::Base
   has_many :report_dogs, dependent: :destroy
   has_many :reports, through: :report_dogs
 
-  validates_presence_of :name
+  validates :name, presence: true
 end

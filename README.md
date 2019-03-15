@@ -25,7 +25,7 @@ xgd-open http://localhost:3000
 - With coverage: `docker-compose run web rake test:coverage` (open `coverage/index.html`)
 - Pessimize Gemfile: `docker-compose run web pessimize`
 - Security Scan: `docker-compose run web brakeman`
-- Lint: `docker-compose run rubocop`
+- Lint: `docker-compose run rubocop --rails`
 
 There is a test that uploads a 1x1png to S3. You'll need to set up `tails-test` S3 Bucket same as `tails-dev`
 

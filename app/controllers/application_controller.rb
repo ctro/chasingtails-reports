@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   # Devise
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   # Kinda Lame.
-  before_filter :set_mailer_host
+  before_action :set_mailer_host
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_url, alert: exception.message

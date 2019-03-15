@@ -50,7 +50,7 @@ class DogsControllerTest < ActionController::TestCase
     assert_match(/Edit/, response.body)
     assert_match(/Destroy/, response.body)
     assert_match(/Back/, response.body)
-    refute_match(/Lanie/, response.body)
+    assert_no_match(/Lanie/, response.body)
   end
 
   test 'new' do

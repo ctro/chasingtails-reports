@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   before_action :set_report, only: %i[show edit update destroy]
   authorize_resource except: :show
 
-  skip_before_filter :authenticate_user!, only: :show
+  skip_before_action :authenticate_user!, only: :show
 
   # GET /reports
   # GET /reports.json
@@ -89,7 +89,7 @@ class ReportsController < ApplicationController
   private
 
   def set_report
-    @report = Report.includes(:user, :dogs, :images).find_by_uuid!(params[:id])
+    @report = Report.includes(:user, :dogs, :images).find_by!(uuid: params[:id])
   end
 
   # I'm pretty sure this is all necessary because of a combination of

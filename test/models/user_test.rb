@@ -33,13 +33,13 @@ class UserTest < ActiveSupport::TestCase
     @b.name = ''
     @b.email = ''
     @b.password = ''
-    refute @b.validate
+    assert_not @b.validate
     assert_equal 3, @b.errors.count
   end
 
   test 'password requirements' do
     @b.password = 'secret'
-    refute @b.validate
+    assert_not @b.validate
     assert_match(/8 characters/, @b.errors.messages.to_s)
   end
 end

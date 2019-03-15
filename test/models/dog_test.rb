@@ -18,6 +18,6 @@ class DogTest < ActiveSupport::TestCase
     assert s.save
 
     s.name = ''
-    refute s.validate
+    assert_not s.validate
   end
 end

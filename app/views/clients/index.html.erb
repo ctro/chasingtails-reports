@@ -19,7 +19,7 @@
         <td><%= link_to client.name, client %></td>
         <td><%= mail_to client.email %></td>
         <td><%= client.address %></td>
-        <td><%= dog_links(client) %></td>
+        <td><%= raw dog_links(client) %></td>
       </tr>
     <% end %>
   </tbody>

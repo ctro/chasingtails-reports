@@ -8,7 +8,7 @@ class ReportMailerTest < ActionMailer::TestCase
     e = ReportMailer.new_report_email(@report)
     e.deliver_now
 
-    refute ActionMailer::Base.deliveries.empty?
+    assert_not ActionMailer::Base.deliveries.empty?
 
     assert_equal ['fredthedog@chasingtailsjh.com'], e.from
     assert_equal ['idclient@gmail.com'], e.to
@@ -21,9 +21,9 @@ class ReportMailerTest < ActionMailer::TestCase
     assert ActionMailer::Base.deliveries.empty?
     Report.create(
       no_show: true, user: users(:Hal), client: clients(:Steph),
-      dogs: [dogs(:PJ)], walk_date: Date.today, walk_time: '13:00',
+      dogs: [dogs(:PJ)], walk_date: Time.zone.today, walk_time: '13:00',
       walk_duration: '90'
     )
-    refute ActionMailer::Base.deliveries.empty?
+    assert_not ActionMailer::Base.deliveries.empty?
   end
 end

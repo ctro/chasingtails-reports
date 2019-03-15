@@ -40,7 +40,7 @@ class ReportTest < ActiveSupport::TestCase
     @sr.walk_date = ''
     @sr.walk_time = ''
     @sr.walk_duration = ''
-    refute @sr.validate
+    assert_not @sr.validate
 
     %w[client dogs walk_date walk_time walk_duration].each do |attribute|
       assert @sr.errors.key?(attribute.to_sym)
@@ -48,7 +48,7 @@ class ReportTest < ActiveSupport::TestCase
 
     # This does not change with :no_show:
     @sr.no_show = true
-    refute @sr.save
+    assert_not @sr.save
   end
 
   test 'conditional required data' do
@@ -61,7 +61,7 @@ class ReportTest < ActiveSupport::TestCase
     @sr.energy = ''
     @sr.vocalization = ''
     @sr.overall = ''
-    refute @sr.validate
+    assert_not @sr.validate
     assert_equal 7, @sr.errors.count
 
     # This changes with :no_show:
@@ -73,7 +73,7 @@ class ReportTest < ActiveSupport::TestCase
     assert_equal false, @sr.no_show
     assert @sr.validate
     @sr.images = []
-    refute @sr.validate
+    assert_not @sr.validate
     @sr.no_show = true
     assert @sr.validate
   end

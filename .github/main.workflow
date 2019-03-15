@@ -16,5 +16,5 @@ action "Brakeman Scan" {
 action "Rubocop Scan" {
   needs = "Brakeman Scan"
   uses = "./.github/rubocop/"
-  args = "rubocop"
+  args = "rubocop --rails"
 }
