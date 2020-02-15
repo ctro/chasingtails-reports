@@ -24,7 +24,7 @@ gem 'uglifier', '~> 3.2'
 
 # Auth
 gem 'cancan', '~> 1.6'
-gem 'devise', '~> 4.6'
+gem 'devise', '~> 4.7'
 gem 'paranoia', '~> 2.4'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
