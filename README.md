@@ -1,6 +1,13 @@
 # ChasingTails Reports
 
-A simple web app for dog walkers using Rails and Postgres.
+A simple web app to create report cards for dog walking businesses. It does things like: 
+
+- Admin and worker(dog walker) logins
+- Client and dog management
+- Dog walkers upload report cards including pees, poops, lots of other stuff, including pictures
+- Clients get emails with report card data, and can easily see and download the pictures from report cards
+- Report cards include GPS data so you can see where the walk happened (and make sure Dog walkers are being honest)
+- Other stuff I can't remember
 
 ## Development
 
